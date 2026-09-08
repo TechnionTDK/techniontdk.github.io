@@ -1,0 +1,38 @@
+{# Expects `pub` (a publications collection item). Rendered identically on
+   /publications/, area pages and news items. #}
+<li class="pub" id="pub-{{ pub.data.slug }}">
+  <h3 class="pub__title">
+    {% if pub.data.links.paper %}<a href="{{ pub.data.links.paper }}">{{ pub.data.title }}</a>
+    {% else %}{{ pub.data.title }}{% endif %}
+  </h3>
+  <p class="pub__authors">
+    {%- for author in pub.data.authors -%}
+      {%- set person = author | personByName -%}
+      {%- if person -%}<a class="pub__author pub__author--member" href="/people/#{{ person.data.slug }}">{{ author }}</a>
+      {%- else -%}<span class="pub__author">{{ author }}</span>{%- endif -%}
+      {%- if not loop.last %}, {% endif -%}
+    {%- endfor -%}
+  </p>
+  <p class="pub__venue">
+    {{ pub.data.citation or (pub.data.venue + " " + pub.data.year) }}
+    {%- if pub.data.status == "to-appear" %} <span class="tag">to appear</span>{% endif %}
+    {%- if pub.data.status == "preprint" %} <span class="tag">preprint</span>{% endif %}
+  </p>
+  {% if pub.data.links %}
+  <p class="pub__links">
+    {% for key, url in pub.data.links %}<a href="{{ url }}">{{ key }}</a>{% endfor %}
+  </p>
+  {% endif %}
+  <p class="pub__areas">
+    {% for slug in pub.data.areas %}{% set area = slug | areaBySlug %}
+    <a class="tag tag--link" href="/research/{{ slug }}/">{{ area.data.title if area else slug }}</a>
+    {% endfor %}
+  </p>
+  {% set abstract = pub.templateContent | stripTags %}
+  {% if abstract %}
+  <details class="pub__abstract">
+    <summary>Abstract</summary>
+    {{ pub.templateContent | safe }}
+  </details>
+  {% endif %}
+</li>

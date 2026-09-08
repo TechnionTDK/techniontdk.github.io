@@ -1,0 +1,29 @@
+{# Expects `person` (a people collection item). #}
+{% set d = person.data %}
+<li class="person" id="{{ d.slug }}">
+  {% if d.photo %}
+  <img class="person__photo" src="{{ d.photo }}" alt="{{ d.name }}" loading="lazy">
+  {% else %}
+  <span class="person__photo person__photo--empty" aria-hidden="true">{{ d.name | initials }}</span>
+  {% endif %}
+  <div class="person__body">
+    <h3 class="person__name">{% if d.honorific %}{{ d.honorific }} {% endif %}{{ d.name }}</h3>
+    {% if d.role %}<p class="person__role">{{ d.role }}</p>{% endif %}
+    {% if d.degree and not d.role %}<p class="person__role">{{ d.degree }} student</p>{% endif %}
+    {% if d.advisors %}
+    <p class="person__advisors">Advised by
+      {% for slug in d.advisors %}{% set a = slug | personBySlug %}
+        {%- if a %}<a href="/people/#{{ slug }}">{{ a.data.name }}</a>{% else %}{{ slug }}{% endif -%}
+        {%- if not loop.last %}, {% endif -%}
+      {% endfor %}
+    </p>
+    {% endif %}
+    {% if d.interests %}<p class="person__interests">{{ d.interests }}</p>{% endif %}
+    <ul class="person__contact">
+      {% if d.email %}<li><a href="mailto:{{ d.email }}">{{ d.email }}</a></li>{% endif %}
+      {% if d.website %}<li><a href="{{ d.website }}">Website</a></li>{% endif %}
+      {% if d.office %}<li>Office {{ d.office }}</li>{% endif %}
+      {% if d.phone %}<li>{{ d.phone }}</li>{% endif %}
+    </ul>
+  </div>
+</li>

@@ -1,0 +1,61 @@
+---
+layout: layouts/base.njk
+---
+{% set areaSlug = page.fileSlug %}
+{% set members = areaSlug | peopleInArea %}
+{% set papers = areaSlug | publicationsInArea %}
+
+<article class="area">
+  <header class="wrap wrap--prose area__header">
+    <p class="breadcrumb"><a href="/research/">Research</a></p>
+    <h1>{{ title }}</h1>
+    <p class="lede">{{ tagline }}</p>
+  </header>
+
+  {% if image %}
+  <div class="wrap wrap--prose area__figure">
+    <img src="{{ image }}" alt="" class="img--wide">
+  </div>
+  {% endif %}
+
+  <div class="prose wrap wrap--prose">
+    {{ content | safe }}
+  </div>
+
+  {% if members.length %}
+  <section class="wrap wrap--prose section">
+    <h2 class="section__title">People</h2>
+    <ul class="people-inline">
+      {% for p in members %}
+      <li>
+        <a href="/people/#{{ p.data.slug }}">{% if p.data.honorific %}{{ p.data.honorific }} {% endif %}{{ p.data.name }}</a>
+        {% if p.data.status == "alumni" %}<span class="tag tag--muted">alumnus</span>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if collaborators %}
+  <section class="wrap wrap--prose section">
+    <h2 class="section__title">Collaborators</h2>
+    <ul class="people-inline">
+      {% for c in collaborators %}
+      <li>
+        {% if c.url %}<a href="{{ c.url }}">{{ c.name }}</a>{% else %}{{ c.name }}{% endif %}
+        {% if c.affiliation %}<span class="muted">{{ c.affiliation }}</span>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if papers.length %}
+  <section class="wrap wrap--prose section">
+    <h2 class="section__title">Publications</h2>
+    <ol class="pub-list">
+      {% for pub in papers %}{% include "partials/publication.njk" %}{% endfor %}
+    </ol>
+  </section>
+  {% endif %}
+</article>

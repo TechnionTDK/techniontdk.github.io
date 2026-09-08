@@ -1,0 +1,35 @@
+---
+title: Projects
+---
+<div class="wrap">
+  <h1>Projects</h1>
+  <p class="lede">{{ site.projects_intro }}</p>
+
+  <ul class="projects">
+    {% for project in collections.projects %}{% if project.data.status != "closed" %}
+    <li class="project">
+      {% if project.data.image %}
+      <img class="project__image" src="{{ project.data.image }}" alt="" loading="lazy">
+      {% endif %}
+      <div class="project__body">
+        <h2 class="project__title">{{ project.data.title }}</h2>
+        <p class="project__advisors">
+          Advisor{% if project.data.advisors.length > 1 %}s{% endif %}:
+          {% for slug in project.data.advisors %}{% set a = slug | personBySlug %}
+            {%- if a and a.data.email %}<a href="mailto:{{ a.data.email }}">{{ a.data.name }}</a>
+            {%- elif a %}{{ a.data.name }}
+            {%- else %}{{ slug }}{% endif -%}
+            {%- if not loop.last %}, {% endif -%}
+          {% endfor %}
+        </p>
+        {% if project.data.audience %}
+        <p class="project__audience">
+          {% for a in project.data.audience %}<span class="tag">{{ a | audienceLabel }}</span>{% endfor %}
+        </p>
+        {% endif %}
+        <div class="prose">{{ project.templateContent | safe }}</div>
+      </div>
+    </li>
+    {% endif %}{% endfor %}
+  </ul>
+</div>

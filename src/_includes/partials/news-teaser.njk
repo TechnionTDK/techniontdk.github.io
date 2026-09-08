@@ -1,0 +1,16 @@
+{# Expects `item` (a news collection item). #}
+<li class="teaser">
+  {% if item.data.cover %}
+  <a class="teaser__thumb" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+    <img src="{{ item.data.cover }}" alt="" loading="lazy">
+  </a>
+  {% endif %}
+  <div class="teaser__body">
+    <p class="meta"><time datetime="{{ item.data.date | isoDate }}">{{ item.data.date | formatDate }}</time></p>
+    <h3 class="teaser__title"><a href="{{ item.url }}">{{ item.data.title }}</a></h3>
+    <p class="teaser__text">
+      {%- if item.data.summary -%}{{ item.data.summary }}
+      {%- else -%}{{ item.templateContent | firstParagraph | stripTags | truncate(220) }}{%- endif -%}
+    </p>
+  </div>
+</li>

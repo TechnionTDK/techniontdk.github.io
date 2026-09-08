@@ -1,0 +1,40 @@
+---
+title: People
+---
+{% set groups = ["faculty", "visiting", "staff", "phd", "msc", "developer"] %}
+{% set alumni = [] %}
+{% for p in collections.people %}{% if p.data.status == "alumni" %}{% set alumni = (alumni.push(p), alumni) %}{% endif %}{% endfor %}
+
+<div class="wrap">
+  <h1>People</h1>
+  <nav class="jump" aria-label="Sections on this page">
+    <ul>
+      {% for g in groups %}
+        {% set members = collections.people | inGroup(g) %}
+        {% if members.length %}<li><a href="#{{ g }}">{{ g | groupLabel }}</a></li>{% endif %}
+      {% endfor %}
+      {% if alumni.length %}<li><a href="#alumni">Alumni</a></li>{% endif %}
+    </ul>
+  </nav>
+
+  {% for g in groups %}
+    {% set members = collections.people | inGroup(g) %}
+    {% if members.length %}
+    <section class="section" id="{{ g }}">
+      <h2 class="section__title">{{ g | groupLabel }}</h2>
+      <ul class="people">
+        {% for person in members %}{% include "partials/person-card.njk" %}{% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+  {% endfor %}
+
+  {% if alumni.length %}
+  <section class="section" id="alumni">
+    <h2 class="section__title">Alumni</h2>
+    <ul class="people-compact">
+      {% for person in alumni %}{% include "partials/person-compact.njk" %}{% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+</div>

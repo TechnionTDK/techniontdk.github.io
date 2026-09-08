@@ -1,0 +1,57 @@
+---
+layout: layouts/base.njk
+---
+<article class="news-item">
+  <header class="wrap wrap--prose">
+    <p class="breadcrumb"><a href="/news/">News</a></p>
+    <h1>{{ title }}</h1>
+    <p class="meta">
+      <time datetime="{{ date | isoDate }}">{{ date | formatDate }}</time>
+      {% for t in tags %}<span class="tag">{{ t }}</span>{% endfor %}
+    </p>
+  </header>
+
+  {% if cover %}
+  <div class="wrap wrap--prose news-item__cover">
+    <img src="{{ cover }}" alt="{{ title }}" class="img--wide">
+  </div>
+  {% endif %}
+
+  <div class="prose wrap wrap--prose">
+    {{ content | safe }}
+  </div>
+
+  {% if photos %}
+  <section class="wrap wrap--prose section">
+    <h2 class="section__title">Photos</h2>
+    <ul class="gallery">
+      {% for photo in photos %}
+      <li><a href="{{ photo }}"><img src="{{ photo }}" alt="" loading="lazy"></a></li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if people %}
+  <section class="wrap wrap--prose section">
+    <h2 class="section__title">Lab members</h2>
+    <ul class="people-inline">
+      {% for slug in people %}{% set p = slug | personBySlug %}{% if p %}
+      <li><a href="/people/#{{ slug }}">{{ p.data.name }}</a></li>
+      {% endif %}{% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if publications %}
+  {% set pubs = collections.publications %}
+  <section class="wrap wrap--prose section">
+    <h2 class="section__title">Related publications</h2>
+    <ol class="pub-list">
+      {% for pub in pubs %}{% if pub.data.slug in publications %}
+        {% include "partials/publication.njk" %}
+      {% endif %}{% endfor %}
+    </ol>
+  </section>
+  {% endif %}
+</article>

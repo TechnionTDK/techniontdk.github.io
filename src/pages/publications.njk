@@ -1,0 +1,15 @@
+---
+title: Publications
+---
+<div class="wrap">
+  <h1>Publications</h1>
+  <p class="lede">Selected papers by members of the lab.</p>
+  {% for group in collections.publications | selected | groupBy("year") %}
+  <section class="section">
+    <h2 class="section__title">{{ group.key }}</h2>
+    <ol class="pub-list">
+      {% for pub in group.items %}{% include "partials/publication.njk" %}{% endfor %}
+    </ol>
+  </section>
+  {% endfor %}
+</div>

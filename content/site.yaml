@@ -1,0 +1,31 @@
+name: Technion Data & Knowledge Lab
+short_name: TD&K
+url: https://tdk.cs.technion.ac.il
+description: The laboratory focuses on developing infrastructures for data management and analysis that are based on a solid theoretical basis.
+logo: /assets/images/site/logo-tdk.png
+affiliations:
+  - name: Faculty of Computer Science
+    url: https://cs.technion.ac.il/
+    logo: /assets/images/site/logo-cs.png
+  - name: Technion
+    url: https://www.technion.ac.il/
+    logo: /assets/images/site/logo-technion.png
+nav:
+  - { label: About, url: /about/ }
+  - { label: People, url: /people/ }
+  - { label: Research, url: /research/ }
+  - { label: Publications, url: /publications/ }
+  - { label: News, url: /news/ }
+  - { label: Projects, url: /projects/ }
+  - { label: Guides, url: /guides/ }
+  - { label: Courses, url: /courses/ }
+  - { label: Contact, url: /contact/ }
+footer:
+  copyright: "© Technion Data & Knowledge Lab"
+  links:
+    - { label: Accessibility, url: https://www.technion.ac.il/en/accessaility-statement/ }
+    - { label: Privacy, url: https://www.technion.ac.il/en/privacy-policy/ }
+home:
+  news_count: 5
+  photo_news_count: 4
+projects_intro: The following projects are proposed for Graduate (M.Sc, Ph.D) and Undergraduate students in the faculty. For more details or for registration, please contact the listed advisor by mail.

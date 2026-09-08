@@ -1,0 +1,14 @@
+---
+title: News
+---
+<div class="wrap">
+  <h1>News</h1>
+  {% for group in collections.news | byYear %}
+  <section class="section">
+    <h2 class="section__title">{{ group.key }}</h2>
+    <ul class="teasers">
+      {% for item in group.items %}{% include "partials/news-teaser.njk" %}{% endfor %}
+    </ul>
+  </section>
+  {% endfor %}
+</div>

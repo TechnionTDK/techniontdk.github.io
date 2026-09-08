@@ -1,0 +1,56 @@
+---
+description: The Technion Data & Knowledge Lab develops infrastructures for data management and analysis on a solid theoretical basis.
+---
+{% set home = null %}
+{% for p in collections.contentPages %}{% if p.data.page.fileSlug == "home" %}{% set home = p %}{% endif %}{% endfor %}
+
+<section class="hero">
+  <div class="wrap wrap--prose prose">
+    <h1 class="hero__title">{{ site.name }}</h1>
+    {% if home %}{{ home.templateContent | safe }}{% endif %}
+  </div>
+</section>
+
+<section class="wrap section">
+  <div class="section__head">
+    <h2>Research</h2>
+    <a class="section__more" href="/research/">All research areas</a>
+  </div>
+  <ul class="cards cards--areas">
+    {% for area in collections.areas %}{% include "partials/area-card.njk" %}{% endfor %}
+  </ul>
+</section>
+
+<section class="wrap section">
+  <div class="section__head">
+    <h2>News</h2>
+    <a class="section__more" href="/news/">All news</a>
+  </div>
+  <ul class="teasers">
+    {% for item in collections.news | head(site.home.news_count) %}
+      {% include "partials/news-teaser.njk" %}
+    {% endfor %}
+  </ul>
+</section>
+
+{% set photoNews = collections.news | withCover | head(site.home.photo_news_count) %}
+{% if photoNews.length %}
+<section class="wrap section">
+  <div class="section__head">
+    <h2>In pictures</h2>
+  </div>
+  <ul class="cards cards--photos">
+    {% for item in photoNews %}
+    <li class="card">
+      <a class="card__link" href="{{ item.url }}">
+        <img class="card__image" src="{{ item.data.cover }}" alt="{{ item.data.title }}" loading="lazy">
+        <span class="card__body">
+          <span class="card__meta">{{ item.data.date | formatDate }}</span>
+          <span class="card__title">{{ item.data.title }}</span>
+        </span>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}

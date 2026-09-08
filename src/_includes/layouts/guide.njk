@@ -1,0 +1,9 @@
+---
+layout: layouts/base.njk
+---
+<article class="prose wrap wrap--prose">
+  <p class="breadcrumb"><a href="/guides/">Guides</a></p>
+  <h1>{{ title }}</h1>
+  <p class="meta">Last updated <time datetime="{{ updated | isoDate }}">{{ updated | formatDate }}</time>{% if author %}{% set a = author | personBySlug %}{% if a %} · {{ a.data.name }}{% endif %}{% endif %}</p>
+  {{ content | safe }}
+</article>

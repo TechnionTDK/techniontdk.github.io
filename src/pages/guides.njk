@@ -1,0 +1,16 @@
+---
+title: Guides
+---
+<div class="wrap wrap--prose">
+  <h1>Guides</h1>
+  <p class="lede">How-to documents for lab members.</p>
+  <ul class="guides">
+    {% for guide in collections.guides %}
+    <li class="guide">
+      <h2 class="guide__title"><a href="{{ guide.url }}">{{ guide.data.title }}</a></h2>
+      <p class="guide__summary">{{ guide.data.summary }}</p>
+      <p class="meta">Updated <time datetime="{{ guide.data.updated | isoDate }}">{{ guide.data.updated | formatDate }}</time></p>
+    </li>
+    {% endfor %}
+  </ul>
+</div>

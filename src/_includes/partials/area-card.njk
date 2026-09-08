@@ -1,0 +1,14 @@
+{# Expects `area`. #}
+<li class="card">
+  <a class="card__link" href="{{ area.url }}">
+    {% if area.data.image %}
+    <img class="card__image" src="{{ area.data.image }}" alt="" loading="lazy">
+    {% else %}
+    <span class="card__image card__image--empty" aria-hidden="true"></span>
+    {% endif %}
+    <span class="card__body">
+      <span class="card__title">{{ area.data.title }}</span>
+      <span class="card__text">{{ area.data.tagline }}</span>
+    </span>
+  </a>
+</li>
