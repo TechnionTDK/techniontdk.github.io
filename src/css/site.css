@@ -387,15 +387,20 @@ th, td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom
   margin: 0;
   padding: 0;
   display: grid;
-  gap: var(--space-6);
+  gap: var(--space-5) var(--space-6);
   grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
 }
 
+/* Cards stretch to the row height, so the rule lands on the same baseline
+   across a row however uneven the text is — the same separator the
+   publication, teaser and guide lists use. */
 .person {
   display: grid;
   grid-template-columns: 5.5rem 1fr;
   gap: var(--space-4);
   align-items: start;
+  padding-bottom: var(--space-5);
+  border-bottom: var(--rule);
   scroll-margin-top: var(--space-6);
 }
 
