@@ -36,6 +36,17 @@ CI workflow.
   runtime (no CDN fonts, scripts or analytics).
 - `tools/scrape/` is a one-off migration tool; do not run it again unless explicitly asked.
 
+## Where a change belongs
+- Colours, type, spacing, and *arrangement* (grid tracks, breakpoints) — `src/css/site.css`.
+  The `:root` block holds the tokens; the rules below it hold the layout. Prefer changing a
+  rule here over changing markup.
+- Which fields render, in what order, with what wording — `src/_includes/partials/` (each one
+  shared by several pages), `src/_includes/layouts/`, `src/pages/`.
+- A content file can never carry `layout`, `permalink` or a styling flag: `eleventyComputed`
+  overwrites the first two and `tools/validate.js` rejects unknown fields. To vary one record,
+  either target its existing `id` in CSS (person cards and publications emit one), or add a
+  real field — `tools/validate.js` + `content/SCHEMA.md` + a modifier class in the partial.
+
 ## Commands
 - `npm install` — once
 - `npm run validate` — check content against the schema (must pass)

@@ -451,11 +451,15 @@ th, td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom
   font-size: var(--size-sm);
   line-height: var(--leading-snug);
   scroll-margin-top: var(--space-6);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 var(--space-2);
 }
-.person-compact__name { display: block; color: var(--color-text); }
+.person-compact__name { color: var(--color-text); }
 .person-compact__degree { color: var(--color-faint); font-size: var(--size-xs); }
-.person-compact__links { display: block; }
-.person-compact__links a { margin-right: var(--space-3); font-size: var(--size-xs); }
+.person-compact__links a { font-size: var(--size-xs); }
+.person-compact__links a + a { margin-left: var(--space-2); }
 
 .people-inline {
   list-style: none;

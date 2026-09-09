@@ -49,9 +49,13 @@ If the browser stops updating, the build most likely failed — look at the term
 
 ### Tuning the look
 
-Everything tunable is a custom property in the `:root` block at the top of
-[`src/css/site.css`](src/css/site.css). Edit a value, save, and the whole site re-renders in
-the open tab. The ones you are most likely to want:
+[`src/css/site.css`](src/css/site.css) is the only stylesheet and it has two halves. The
+`:root` block at the top holds the design tokens: edit a value, save, and the whole site
+re-renders in the open tab. The rules below it are ordinary CSS, and that is where
+*arrangement* lives — the grid tracks for a person card, a news teaser and a project row, and
+every breakpoint. Reach for a rule there before you change any markup.
+
+The tokens you are most likely to want:
 
 | Property | Controls |
 |---|---|
@@ -65,18 +69,19 @@ the open tab. The ones you are most likely to want:
 | `--measure-prose` | width of running text (~44rem) |
 | `--measure-wide` | width of grids and listings (~72rem) |
 
-Two rules of thumb worth keeping: change the *variable*, not the rule that uses it, so the
-change stays consistent everywhere; and if you darken `--color-muted` or `--color-faint`, keep
-contrast against white at 4.5:1 or better — `--color-faint` is currently right at the limit.
+Two rules of thumb for the tokens: change the *variable*, not the individual rule that uses
+it, so the change stays consistent everywhere; and if you darken `--color-muted` or
+`--color-faint`, keep contrast against white at 4.5:1 or better — `--color-faint` is currently
+right at the limit.
 
 There is one small script, `src/js/nav.js`, for the mobile navigation toggle, and it should
 stay the only one. Everything else works without JavaScript: collapsible abstracts are
 `<details>`, and with JS off the navigation simply stays expanded. Nothing is loaded from an
 external host — no CDN fonts, scripts or analytics — and it is worth keeping it that way.
 
-Structure — what appears on a page and in what order — lives in the templates, not the CSS:
-`src/pages/*.njk` for the listing pages, `src/_includes/layouts/` for the per-item pages, and
-`src/_includes/partials/` for the pieces reused across them (a person card, a publication
+Structure — which fields appear and in what order — lives in the templates rather than in the
+CSS: `src/pages/*.njk` for the listing pages, `src/_includes/layouts/` for the per-item pages,
+and `src/_includes/partials/` for the pieces reused across them (a person card, a publication
 entry, a news teaser). Changing `partials/publication.njk` changes how a paper is rendered on
 `/publications/`, on every area page and on news items at once, because all three include it.
 
