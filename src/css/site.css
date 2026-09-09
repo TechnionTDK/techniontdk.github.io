@@ -247,18 +247,13 @@ th, td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom
 .site-header__brand {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
   color: var(--color-text);
   text-decoration: none;
   margin-right: auto;
 }
-.site-header__logo { width: 40px; height: 40px; object-fit: contain; }
-.site-header__name {
-  font-family: var(--font-display);
-  font-size: var(--size-md);
-  line-height: var(--leading-tight);
-  max-width: 16ch;
-}
+/* The logo is a wordmark that spells the lab name, so it stands alone in the
+   header: sized by height, width follows the 448x86 aspect ratio. */
+.site-header__logo { height: 2.75rem; width: auto; }
 
 .site-nav__list {
   display: flex;
@@ -686,6 +681,7 @@ th, td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom
   .person__photo { width: 4.5rem; height: 4.5rem; }
   .people-compact { columns: 1; }
   .wrap { padding-inline: var(--space-4); }
+  .site-header__logo { height: 2.125rem; }
 }
 
 @media print {
