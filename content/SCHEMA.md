@@ -57,6 +57,7 @@ short_name: TD&K
 url: https://tdk.cs.technion.ac.il
 description: <one sentence describing the lab>
 logo: /assets/images/site/logo-tdk.png
+favicon: /assets/images/site/favicon.png   # optional; browser tab icon
 affiliations:                  # shown in the header/footer
   - name: Faculty of Computer Science
     url: https://cs.technion.ac.il/

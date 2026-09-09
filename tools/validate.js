@@ -288,6 +288,7 @@ function checkSite() {
     if (!(k in site)) err(`missing key: ${k}`);
   }
   if (site.logo) checkAsset('logo', site.logo, err);
+  if (site.favicon) checkAsset('favicon', site.favicon, err);
   for (const a of site.affiliations ?? []) if (a.logo) checkAsset(`affiliations[${a.name}].logo`, a.logo, err);
   (site.nav ?? []).forEach((n, i) => {
     if (!n.label) err(`nav[${i}]: missing label`);
