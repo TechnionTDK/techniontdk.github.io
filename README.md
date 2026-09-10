@@ -165,6 +165,17 @@ Two data conventions the generator leans on and that are worth keeping current:
   publication being edited.
 - **`areas` lives on the person and on the publication**, never on the area.
 
+### The playbook
+
+[`docs/playbook/`](docs/playbook/INDEX.md) holds recipes for the recurring update tasks — add
+these papers, add a new member, write up this event. It starts empty and grows: when you ask
+for something the playbook does not cover, the agent asks you the open questions, does the
+work, and then records what was decided as a new recipe, so the second time it does not ask
+again. `INDEX.md` is one line per recipe and is the only file read to find one.
+
+Correct a recipe by saying so — it is folded into the existing file rather than piled up as a
+second version of the same task.
+
 ## Layout
 
 ```

@@ -36,6 +36,27 @@ CI workflow.
   runtime (no CDN fonts, scripts or analytics).
 - `tools/scrape/` is a one-off migration tool; do not run it again unless explicitly asked.
 
+## Content update tasks
+
+A request to change the *data* — add these papers, add a new member, write up this event, add a
+guide, mark someone an alumnus — runs through the playbook in `docs/playbook/`.
+
+1. **Look first.** Read `docs/playbook/INDEX.md` — one line per recipe, cheap to read whole.
+   It is the only playbook file to open unprompted; `grep -ril "<word>" docs/playbook/` finds
+   a recipe by keyword. If a line matches the request, read that recipe and follow it.
+2. **No match — ask, then do.** Ask the manager only what the task genuinely leaves open: the
+   judgment calls (which research areas, does this also become a news item, is it selected),
+   never the mechanics that `content/SCHEMA.md` already answers. Batch the questions into one
+   round rather than dripping them out. Then do the work.
+3. **Record it.** When the task is done, write `docs/playbook/<task-slug>.md` and add its one
+   line to the index — the questions asked, the answers given, the steps actually run. Say in
+   one line what was recorded, so the manager can correct it while it is fresh.
+4. **Keep it true.** A correction mid-task, a settled question, or a new variant is folded into
+   the existing recipe (bump `Updated:`), never added as a second recipe for the same task.
+
+The formats and the rules for keeping recipes honest are in `docs/playbook/INDEX.md`.
+`content/SCHEMA.md` stays the field reference: a recipe carries judgment, not field lists.
+
 ## Where a change belongs
 - Colours, type, spacing, and *arrangement* (grid tracks, breakpoints) — `src/css/site.css`.
   The `:root` block holds the tokens; the rules below it hold the layout. Prefer changing a
@@ -58,6 +79,8 @@ CI workflow.
 ## Docs
 - `README.md` — how to preview, edit, tune the design and deploy. Start here.
 - `content/SCHEMA.md` — field-by-field schema of every content type. Read before editing content.
+- `docs/playbook/INDEX.md` — index of content-update recipes, one line each. Read before any
+  data task; see "Content update tasks" above.
 - `docs/deploy-vm.md` — runbook for standing up a Linux VM: IP-only over HTTP, then domain
   and HTTPS, then the security settings worth having. Written to be followed top to bottom.
 - `docs/spec-a-data.md`, `docs/spec-b-generator.md` — original build specs. Deviations from
