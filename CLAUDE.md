@@ -33,6 +33,9 @@ CI workflow.
 - The site must stay fully usable with JavaScript disabled, and make no external requests at
   runtime (no CDN fonts, scripts or analytics).
 - `tools/scrape/` is a one-off migration tool; do not run it again unless explicitly asked.
+- Work on `main`. One developer, no review step, so feature branches only add a merge to do
+  later — commit straight to `main` and do not branch unless asked. Commit and push only when
+  asked; leave the work in the tree otherwise.
 
 ## Content update tasks
 
