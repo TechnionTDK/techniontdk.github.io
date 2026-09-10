@@ -57,6 +57,10 @@
   --measure-wide:  72rem;   /* grids and listings */
   --measure-prose: 44rem;   /* running text */
 
+  /* Height of the sticky header: logo + padding above and below. Anchor
+     targets are pushed down by this much so the header never hides them. */
+  --header-h: calc(2.75rem + 2 * var(--space-4));
+
   --radius:    3px;
   --radius-lg: 6px;
 
@@ -69,7 +73,12 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+/* scroll-padding-top keeps in-page anchors clear of the sticky header, for
+   the skip link, the /people/ jump list and every #fragment link. */
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: var(--header-h);
+}
 
 body {
   margin: 0;
@@ -127,7 +136,7 @@ th, td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom
   position: absolute;
   left: var(--space-4);
   top: -4rem;
-  z-index: 10;
+  z-index: 30;
   background: var(--color-bg);
   color: var(--color-accent);
   padding: var(--space-2) var(--space-4);
@@ -232,6 +241,9 @@ th, td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom
    -------------------------------------------------------------------------- */
 
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   border-bottom: var(--rule);
   background: var(--color-bg);
 }
@@ -663,6 +675,8 @@ th, td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom
 
   .site-nav { flex-basis: 100%; }
   .site-nav[data-collapsed="true"] { display: none; }
+  /* The open menu must never grow past the viewport on a short screen. */
+  .site-nav { max-height: calc(100vh - var(--header-h)); overflow-y: auto; }
   .site-nav__list { flex-direction: column; gap: 0; }
   .site-nav__list li { border-top: var(--rule); }
   .site-nav a { display: block; padding-block: var(--space-3); border-bottom: 0; }
@@ -682,6 +696,7 @@ th, td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom
   .people-compact { columns: 1; }
   .wrap { padding-inline: var(--space-4); }
   .site-header__logo { height: 2.125rem; }
+  :root { --header-h: calc(2.125rem + 2 * var(--space-4)); }
 }
 
 @media print {
