@@ -66,6 +66,7 @@ let peopleByName = new Map();   // name or alias -> person item
 let peopleBySlug = new Map();
 let peopleByArea = new Map();   // area slug -> person items
 let pubsByArea = new Map();     // area slug -> publication items
+let pubsBySlug = new Map();     // publication slug -> publication item
 let areasBySlug = new Map();
 
 const GROUP_ORDER = ['faculty', 'visiting', 'staff', 'phd', 'msc', 'developer'];
@@ -151,8 +152,10 @@ export default function (eleventyConfig) {
     const pubs = api.getFilteredByGlob('./content/publications/*.md').sort(comparePublications);
 
     pubsByArea = new Map();
+    pubsBySlug = new Map();
     for (const pub of pubs) {
       pub.data.slug = slugOf(pub);
+      pubsBySlug.set(pub.data.slug, pub);
       for (const area of pub.data.areas ?? []) {
         if (!pubsByArea.has(area)) pubsByArea.set(area, []);
         pubsByArea.get(area).push(pub);
@@ -198,6 +201,9 @@ export default function (eleventyConfig) {
   // Derived lists: a person declares their areas, an area never lists people.
   eleventyConfig.addFilter('peopleInArea', (slug) => peopleByArea.get(slug) ?? []);
   eleventyConfig.addFilter('publicationsInArea', (slug) => pubsByArea.get(slug) ?? []);
+  // Resolves a news item's `publications:` slugs, keeping the order it listed them in.
+  eleventyConfig.addFilter('publicationsBySlug', (slugs) =>
+    (slugs ?? []).map((s) => pubsBySlug.get(s)).filter(Boolean));
 
   // News mentioning a person, derived from each item's `people:` list.
   eleventyConfig.addFilter('newsAbout', (news, slug) =>
@@ -239,7 +245,6 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter('head', (items, n) => (items ?? []).slice(0, n));
   eleventyConfig.addFilter('inGroup', (people, group) =>
     (people ?? []).filter((p) => p.data.status === 'active' && p.data.group === group));
-  eleventyConfig.addFilter('selected', (pubs) => (pubs ?? []).filter((p) => p.data.selected));
   eleventyConfig.addFilter('withCover', (news) => (news ?? []).filter((n) => n.data.cover));
   eleventyConfig.addFilter('audienceLabel', (a) =>
     ({ msc: 'M.Sc.', phd: 'Ph.D.', undergrad: 'Undergraduate' })[a] ?? a);

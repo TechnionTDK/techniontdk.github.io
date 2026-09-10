@@ -2,19 +2,13 @@
 title: Five papers and demos accepted to SIGMOD 2025
 date: 2025-06-12
 tags: [paper]
+publications:
+  - 2025-sigmod-fair-actionable-prescription
+  - 2025-sigmod-inconsistency-differential-privacy
+  - 2025-sigmod-seercuts
+  - 2025-sigmod-causalens
+  - 2025-sigmod-causumx
 ---
-The following papers and demos were accepted to SIGMOD 2025:
-
-**Research Paper:**
-
-- Benton Li, Nativ Levy, Brit Youngmann, Sainyam Galhotra, Sudeepa Roy: Fair and Actionable Causal Prescription Ruleset
-- Shubhankar Mohapatra, Amir Gilad, Xi He, Benny Kimelfeld: Computing Inconsistency Measures Under Differential Privacy
-
-
-**Demo Papers:**
-
-- Eugenie Lai, Inbal Croitoru, Noam Bitton, Ariel Shalem, Brit Youngmann, Sainyam Galhotra, El Kindi Rezig, Michael Cafarella: SeerCuts: Explainable Attribute Discretization
-- Noam Chen, Anna Zeng, Michael Cafarella, Batya Kenig, Markos Markakis, Oren Mishali, Brit Youngmann, Babak Salimi: CausaLens: A System for Summarizing Causal DAGs
-- Nativ Levy, Michael Cafarella, Amir Gilad, Sudeepa Roy, Brit Youngmann: CauSumX: Summarized Causal Explanations For Group-By-Average Queries
+Five papers and demos were accepted to SIGMOD 2025.
 
 Congratulations to all the authors!

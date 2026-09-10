@@ -488,6 +488,7 @@ th, td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom
    Publications
    -------------------------------------------------------------------------- */
 
+.pub-year { scroll-margin-top: var(--space-6); }
 .pub-list { list-style: none; margin: 0; padding: 0; }
 
 .pub {

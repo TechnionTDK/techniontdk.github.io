@@ -2,11 +2,11 @@
 title: Three papers accepted to SIGMOD 2026
 date: 2025-12-14
 tags: [paper]
+publications:
+  - 2026-sigmod-monotonic-trends-repair
+  - 2026-sigmod-causal-explanations-disparate-trends
+  - 2026-sigmod-stress-testing-causal-claims
 ---
-The following papers were accepted to SIGMOD 2026:
-
-- Analyzing Deviations from Monotonic Trends through Database Repair, by Shunit Agmon, Jonathan Gal, Amir Gilad, Ester Livshits, Or Mutay, Brit Youngmann, and Benny Kimelfeld
-- Causal Explanations for Disparate Trends: Where and Why?, by Tal Bla, Brit Youngmann, Anna Fariha, and Yuval Moskovitch
-- Stress-Testing Causal Claims via Cardinality Repairs, by Yarden Gabbay, Haoquan Guan, Shaull Almagor, El Kindi Rezig, Brit Youngmann, and Babak Salimi
+Three papers were accepted to SIGMOD 2026.
 
 Congratulations to all the authors!

@@ -47,6 +47,28 @@ news filename whose date disagrees with its front matter. Run it before you stop
 If the browser stops updating, the build most likely failed — look at the terminal running
 `npm run dev`, which prints the error and the file it came from.
 
+### Common tasks
+
+Most requests come down to one or two files. You can edit them by hand, or ask the agent in
+plain language — it follows the recipes in [`docs/playbook/`](docs/playbook/INDEX.md), which
+record what was decided the last time so you are not asked the same question twice.
+
+| What you want | What it takes |
+|---|---|
+| A paper was accepted or published | **two files** — a record in `content/publications/`, and a news item carrying `publications: [<slug>]`. The news body says where it was accepted and congratulates; it does *not* restate the title and authors, because the item renders the full record itself. |
+| Add an older paper to the list | **one file** — just the publication record. Not every paper needs an announcement. |
+| A new lab member | one file in `content/people/`, plus a photo at `/assets/images/people/<slug>.jpg` |
+| Someone graduates | edit their file: `status: alumni`, remove `group`. Never delete it — papers and news still reference them. |
+| Write up an event | one file in `content/news/`, images under `/assets/images/news/<year>/` |
+| A new guide for lab members | one file in `content/guides/` |
+
+The paper case is the one worth internalising, because it is the one that went wrong before:
+`/publications/` is generated from `content/publications/`, so a paper announced only in prose
+appears nowhere but that one news item. Filing the record is what makes it show up on the
+publications page, on its research-area pages, and under its authors' names. `npm run validate`
+warns when a news item tagged `paper` references no publication, so the omission surfaces
+immediately rather than six years later.
+
 ### Tuning the look
 
 [`src/css/site.css`](src/css/site.css) is the only stylesheet and it has two halves. The
@@ -216,17 +238,24 @@ Say you want `content/theses/`:
    `src/pages/` must be in `PAGE_ROUTES`, because computed data overrides front matter.
 5. Add the nav entry to `content/site.yaml`.
 
-## Deviations from the specs
+## Decisions worth knowing
 
-`docs/spec-b-generator.md` left a few things open; what was decided:
+Things that look like omissions but are deliberate. Change them if the reason stops holding —
+each one is written down so you can tell whether it still does.
 
 - **No `/people/<slug>/` pages.** People appear as cards on `/people/`, and every reference to
   a person elsewhere — publication authors, area members, news, project advisors — links to
-  `/people/#<slug>`. Consequently the spec's `publicationsByPerson` filter is not implemented;
-  it had no consumer.
+  `/people/#<slug>`. A per-person `publicationsByPerson` filter would only be worth adding
+  alongside such pages; today nothing would consume it.
 - **No `@11ty/eleventy-img`.** `assets/` is copied through unchanged and CSS does the cropping
   (`aspect-ratio` + `object-fit`), which keeps the dependency list to Eleventy alone and the
   build under a second. Worth revisiting if the news galleries grow much larger.
 - **No GitHub Actions workflow**, since the project is not a git repository yet.
+- **`/publications/` lists every paper, not a curated subset.** The page began as a hand-picked
+  "selected publications" list and went six years without an update: the only routine that ever
+  ran was "a paper was accepted, write news", and that produced no publication record. Papers are
+  now filed from the announcement (`publications:` on the news item), there is no `selected`
+  field, and `tools/validate.js` warns when a `paper`-tagged news item references no publication.
+  The general lesson: a list nobody is *forced* to update will not be updated.
 - `markdownTemplateEngine` is `false`: Markdown under `content/` is data and is never run
   through a template engine, so `{{ }}` in a body would be printed, not evaluated.

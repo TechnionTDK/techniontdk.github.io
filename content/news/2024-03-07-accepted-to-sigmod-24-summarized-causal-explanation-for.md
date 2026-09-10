@@ -2,5 +2,6 @@
 title: "Accepted to SIGMOD'24: Summarized Causal Explanation for Aggregate Views"
 date: 2024-03-07
 tags: [paper]
+publications: [2024-sigmod-summarized-causal-explanation]
 ---
-The paper "Summarized Causal Explanation for Aggregate Views" by Brit Youngmann, Michael Cafarella, Amir Gilad, and Sudeepa Roy, was accepted to SIGMOD'24.
+The paper was accepted to SIGMOD'24.

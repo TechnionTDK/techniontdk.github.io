@@ -11,7 +11,6 @@ citation: "J. ACM 62(2): 12:1-12:51 (2015)"
 links:
   paper: https://dl.acm.org/citation.cfm?id=2699442
 areas: [text-analysis]
-selected: true
 ---
 An intrinsic part of information extraction is the creation and manipulation of relations extracted from text. In this article, we develop a foundational framework where the central construct is what we call a *document spanner* (or just *spanner* for short). A spanner maps an input string into a relation over the spans (intervals specified by bounding indices) of the string. The focus of this article is on the representation of spanners. Conceptually, there are two kinds of such representations. Spanners defined in a *primitive* representation extract relations directly from the input string; those defined in an *algebra* apply algebraic operations to the primitively represented spanners. This framework is driven by SystemT, an IBM commercial product for text analysis, where the primitive representation is that of regular expressions with capture variables.
 

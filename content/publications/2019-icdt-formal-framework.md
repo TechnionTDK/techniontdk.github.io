@@ -6,14 +6,11 @@ authors:
   - Benny Kimelfeld
   - Christopher Ré
   - Theodoros Rekatsinas
-venue: CoRR
-year: 2018
-citation: "CoRR abs/1801.06750, 2018"
-status: preprint
+venue: ICDT
+year: 2019
 links:
-  paper: https://arxiv.org/abs/1801.06750
+  arxiv: https://arxiv.org/abs/1801.06750
 areas: [inconsistent-data-management]
-selected: true
 ---
 Most theoretical frameworks that focus on data errors and inconsistencies follow logic-based reasoning. Yet, practical data cleaning tools need to incorporate statistical reasoning to be effective in real-world data cleaning tasks. Motivated by these empirical successes, we propose a formal framework for unclean databases, where two types of statistical knowledge are incorporated: The first represents a belief of how intended (clean) data is generated, and the second represents a belief of how noise is introduced in the actual observed database instance.
 

@@ -191,8 +191,7 @@ The body is the abstract in Markdown, and may be empty.
 | `authors` | yes | list of text | In display order, full names as published. **Plain strings, not slugs.** |
 | `venue` | yes | text | Short name as commonly cited: `PODS`, `SIGMOD`, `ICDT`, `J. ACM`, `ACM TODS`. |
 | `year` | yes | integer | |
-| `areas` | yes | list of `areas` slugs | At least one. |
-| `selected` | yes | boolean | `true` for papers featured as selected publications. |
+| `areas` | no | list of `areas` slugs | Omit when the fit is not clear; the paper is then listed on `/publications/` but on no area page, and can be filed later. |
 | `citation` | no | quoted text | The full venue/pages string as cited. |
 | `status` | no | `published` \| `to-appear` \| `preprint` | Defaults to `published` when omitted. |
 | `links` | no | mapping | Keys from exactly: `paper`, `arxiv`, `doi`, `code`, `slides`, `video`. |
@@ -210,13 +209,17 @@ citation: "PODS 2018: 137-149"
 links:
   paper: https://arxiv.org/pdf/1703.10350.pdf
 areas: [text-analysis, query-optimization, enumeration-algorithms]
-selected: true
 ---
 Abstract in Markdown.
 ```
 
 **Authors stay as strings.** The generator links them to people by name (see `aliases` above).
 A paper belonging to several research areas is **one file** listing all of them in `areas`.
+
+**Every announced paper gets a file here.** `/publications/` is the complete list, not a curated
+one — there is no "selected" flag and no editorial subset. A news item announcing a paper points
+at it with `publications:` rather than restating its title and authors — `npm run validate` warns
+about a `paper`-tagged news item that references none.
 
 For a `to-appear` paper, `venue` and `year` are the *target* venue's, while `citation` keeps the
 original string, e.g. `"CoRR abs/1712.08198 (2017). To appear in ICDT 2019"`.
@@ -319,13 +322,16 @@ to the others in their group. Add `areas` for the research areas they work in.
 `email` and `areas`. Do not delete the file — publications and news still reference the person
 by name and slug.
 
-**Add a publication.** Create one file, list *all* its research areas in `areas`, and keep the
-author names exactly as published. If a lab member's name is spelled differently there, add that
-spelling to their `aliases` instead of changing the publication.
+**Add a publication.** Create one file and keep the author names exactly as published. If a lab
+member's name is spelled differently there, add that spelling to their `aliases` instead of
+changing the publication. List every research area the paper belongs to in `areas`, or omit the
+field when the fit is unclear. If the paper is being *announced*, the news item points at it with
+`publications:` and does not restate its title and authors.
 
 **Add a news item.** Filename date must match the `date` field. Put images in
 `/assets/images/news/<year>/`.
 
 **Check your work.** `npm run validate` — it reports errors (which must be fixed) and warnings
-(worth reading: a publication with no links, an active person with no photo, an author name that
-matches no person).
+(worth reading: a `paper`-tagged news item that references no publication, a publication still
+marked `to-appear` after its venue has passed, papers with no areas, a publication with no links,
+an active person with no photo, an author name that matches no person).

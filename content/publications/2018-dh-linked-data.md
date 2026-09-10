@@ -9,7 +9,6 @@ citation: "DH 2018: 455-456"
 links:
   paper: https://dh2018.adho.org/towards-linked-data-of-bible-quotations-in-jewish-texts/
 areas: [text-analysis, knowledge-bases]
-selected: true
 ---
 The Hebrew Bible (the Tanakh) is the most ancient and sacred collection of Jewish texts. Throughout the history, additional religious Jewish texts have been written such as the Mishna, the Babylonian Talmud, and many more. These additional texts are often related to (or inspired by) the Bible. As such, many of them quote verses from the Bible. Depending mostly on their frequency and location within the text, the quotations may indicate a weak or strong semantic relation between a given text and a specific portion of the Bible. Knowing these semantic relations may be beneficial for those interested in studying or investigating the Bible.
 

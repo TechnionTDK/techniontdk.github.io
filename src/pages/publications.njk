@@ -1,11 +1,17 @@
 ---
 title: Publications
 ---
+{% set years = collections.publications | groupBy("year") %}
 <div class="wrap">
   <h1>Publications</h1>
-  <p class="lede">Selected papers by members of the lab.</p>
-  {% for group in collections.publications | selected | groupBy("year") %}
-  <section class="section">
+  <p class="lede">Papers by members of the lab, newest first.</p>
+  <nav class="jump" aria-label="Jump to a year">
+    <ul>
+      {% for group in years %}<li><a href="#y{{ group.key }}">{{ group.key }}</a></li>{% endfor %}
+    </ul>
+  </nav>
+  {% for group in years %}
+  <section class="section pub-year" id="y{{ group.key }}">
     <h2 class="section__title">{{ group.key }}</h2>
     <ol class="pub-list">
       {% for pub in group.items %}{% include "partials/publication.njk" %}{% endfor %}

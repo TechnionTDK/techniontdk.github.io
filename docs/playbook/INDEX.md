@@ -13,7 +13,7 @@ task at hand. To search by keyword instead of scanning: `grep -ril "<word>" docs
 
 ## Recipes
 
-_None yet._
+- [add-accepted-papers](add-accepted-papers.md) — file an accepted/published paper and announce it. Triggers: paper accepted, we got a paper into, add these papers, announce the acceptance, N papers accepted to, published in journal.
 
 <!-- One line per recipe, alphabetical by slug. Format:
 - [slug](slug.md) — what the task does. Triggers: phrase, phrase, phrase.

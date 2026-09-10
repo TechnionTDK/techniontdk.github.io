@@ -56,16 +56,16 @@ const SCHEMA = {
       authors: 'list:string',
       venue: 'string',
       year: 'int',
-      areas: 'list:slugRef:areas',
-      selected: 'bool',
     },
     opt: {
       citation: 'string',
       status: 'enum:published|to-appear|preprint',
       links: 'links',
+      // Optional: a paper with no areas is listed on /publications/ but on no
+      // area page. Filed later rather than guessed at announcement time.
+      areas: 'list:slugRef:areas',
     },
     extra(fm, err) {
-      if (Array.isArray(fm.areas) && fm.areas.length === 0) err('areas must have at least one entry');
       if (Array.isArray(fm.authors) && fm.authors.length === 0) err('authors must not be empty');
     },
   },
@@ -303,8 +303,25 @@ function checkSite() {
 }
 
 function checkWarnings() {
+  const thisYear = new Date().getUTCFullYear();
   for (const doc of docs.publications ?? []) {
     if (!doc.fm.links) warnings.push(`${doc.file}: publication has no links`);
+    // `to-appear` is a promise with an expiry: once the target year is behind us
+    // the paper has appeared, and the record needs a citation and status.
+    if (doc.fm.status === 'to-appear' && Number(doc.fm.year) < thisYear) {
+      warnings.push(`${doc.file}: still "to-appear" but ${doc.fm.year} has passed — add the citation and drop the status`);
+    }
+  }
+  // A paper announcement that files no publication is how /publications/ went
+  // stale for six years. Make the omission visible the day it happens.
+  for (const doc of docs.news ?? []) {
+    if ((doc.fm.tags ?? []).includes('paper') && !(doc.fm.publications ?? []).length) {
+      warnings.push(`${doc.file}: tagged "paper" but references no publications — file the paper under content/publications/ and list its slug`);
+    }
+  }
+  const noAreas = (docs.publications ?? []).filter((d) => !(d.fm.areas ?? []).length);
+  if (noAreas.length) {
+    warnings.push(`${noAreas.length} publication(s) have no areas, so they appear on no research-area page: ${noAreas.map((d) => d.slug).sort().join(', ')}`);
   }
   for (const doc of docs.people ?? []) {
     if (doc.fm.status === 'active' && !doc.fm.photo) warnings.push(`${doc.file}: active person has no photo`);

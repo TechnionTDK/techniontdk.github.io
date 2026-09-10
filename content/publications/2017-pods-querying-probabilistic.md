@@ -11,6 +11,5 @@ citation: "PODS 2017: 21-36"
 links:
   paper: https://dl.acm.org/citation.cfm?id=3056111
 areas: [preference-data-management]
-selected: true
 ---
 We propose a novel framework wherein probabilistic preferences can be naturally represented and analyzed in a probabilistic relational database. The framework augments the relational schema with a special type of a relation symbol—a preference symbol. A deterministic instance of this symbol holds a collection of binary relations. Abstractly, the probabilistic variant is a probability space over databases of the augmented form (i.e., probabilistic database). Effectively, each instance of a preference symbol can be represented as a collection of parametric preference distributions such as Mallows. We establish positive and negative complexity results for evaluating Conjunctive Queries (CQs) over databases where preferences are represented in the Repeated Insertion Model (RIM), Mallows being a special case. We show how CQ evaluation reduces to a novel inference problem (of independent interest) over RIM, and devise a solver with polynomial data complexity.

@@ -7,8 +7,8 @@ authors:
   - Benny Kimelfeld
 venue: PODS
 year: 2019
-citation: "To appear in PODS, 2019"
-status: to-appear
+citation: "PODS 2019: 2-16"
+links:
+  doi: https://doi.org/10.1145/3294052.3319680
 areas: [databases-and-machine-learning]
-selected: true
 ---

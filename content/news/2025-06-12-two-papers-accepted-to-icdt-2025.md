@@ -2,10 +2,8 @@
 title: Two Papers Accepted to ICDT 2025
 date: 2025-06-12
 tags: [paper]
+publications: [2025-icdt-factorized-representations, 2025-icdt-repairing-metric-spaces]
 ---
-The following papers have been accepted to ICDT 2025:
-
-- "A Formal Language Perspective on Factorized Representations" by Benny Kimelfeld, Wim Martens, and Matthias Niewerth
-- "Repairing Databases over Metric Spaces with Coincidence Constraints" by Youri Kaminsky, Benny Kimelfeld, Ester Livshits, Felix Naumann, and David Wajc
+Two papers have been accepted to ICDT 2025.
 
 Congratulations to all authors!

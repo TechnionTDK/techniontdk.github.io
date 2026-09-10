@@ -44,13 +44,12 @@ layout: layouts/base.njk
   {% endif %}
 
   {% if publications %}
-  {% set pubs = collections.publications %}
   <section class="wrap wrap--prose section">
-    <h2 class="section__title">Related publications</h2>
+    <h2 class="section__title">Papers</h2>
     <ol class="pub-list">
-      {% for pub in pubs %}{% if pub.data.slug in publications %}
+      {% for pub in publications | publicationsBySlug %}
         {% include "partials/publication.njk" %}
-      {% endif %}{% endfor %}
+      {% endfor %}
     </ol>
   </section>
   {% endif %}

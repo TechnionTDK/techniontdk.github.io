@@ -10,13 +10,11 @@ replacing a WordPress site. Two strictly separated halves:
 
 ## Status
 
-Both build steps are complete and the site builds clean.
+The site builds clean: `npm run build` writes 108 pages and `npm run linkcheck` passes.
 
-- **Step A (data)** — the WordPress content is migrated into `content/` (7 areas, 43 people,
-  20 publications, 87 news items, 2 projects, 1 guide, 4 pages) and `assets/`.
-  See `MIGRATION_REPORT.md` for the judgment calls made.
-- **Step B (generator)** — Eleventy build, templates, one stylesheet, link checker and deploy
-  script. `npm run build` writes 108 pages; `npm run linkcheck` passes.
+`content/` holds 7 areas, 43 people, 93 publications, 87 news items, 2 projects, 1 guide and
+4 pages, migrated from the WordPress site — `MIGRATION_REPORT.md` records the judgment calls
+that migration made.
 
 Not done: the site has never been deployed (`deploy.env` does not exist yet), and there is no
 CI workflow.
@@ -83,5 +81,3 @@ The formats and the rules for keeping recipes honest are in `docs/playbook/INDEX
   data task; see "Content update tasks" above.
 - `docs/deploy-vm.md` — runbook for standing up a Linux VM: IP-only over HTTP, then domain
   and HTTPS, then the security settings worth having. Written to be followed top to bottom.
-- `docs/spec-a-data.md`, `docs/spec-b-generator.md` — original build specs. Deviations from
-  spec B are listed at the end of `README.md`.

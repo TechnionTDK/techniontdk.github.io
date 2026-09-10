@@ -11,7 +11,6 @@ citation: "ACM Trans. Database Syst. 41(1): 6:1-6:44 (2016)"
 links:
   paper: https://dl.acm.org/citation.cfm?doid=2897141.2877202
 areas: [text-analysis]
-selected: true
 ---
 The population of a predefined relational schema from textual content, commonly known as Information Extraction (IE), is a pervasive task in contemporary computational challenges associated with Big Data. Since the textual content varies widely in nature and structure (from machine logs to informal natural language), it is notoriously difficult to write IE programs that unambiguously extract the sought information. For example, during extraction, an IE program could annotate a substring as both an address and a person name. When this happens, the extracted information is said to be *inconsistent*, and some way of removing inconsistencies is crucial to compute the final output. Industrial-strength IE systems like GATE and IBM SystemT therefore provide a built-in collection of *cleaning* operations to remove inconsistencies from extracted relations. These operations, however, are collected in an ad hoc fashion through use cases. Ideally, we would like to allow IE developers to declare their own policies. But existing cleaning operations are defined in an algorithmic way, and hence it is not clear how to extend the built-in operations without requiring low-level coding of internal or external functions.
 
