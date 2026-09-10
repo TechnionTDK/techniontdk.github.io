@@ -2,7 +2,7 @@ name: Technion Data & Knowledge Lab
 short_name: TD&K
 url: https://tdk.cs.technion.ac.il
 description: The laboratory focuses on developing infrastructures for data management and analysis that are based on a solid theoretical basis.
-logo: /assets/images/site/logo-tdk.png
+logo: /assets/images/site/logo-tdk.svg
 favicon: /assets/images/site/favicon.png
 affiliations:
   - name: Faculty of Computer Science
