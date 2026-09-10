@@ -58,5 +58,7 @@ CI workflow.
 ## Docs
 - `README.md` — how to preview, edit, tune the design and deploy. Start here.
 - `content/SCHEMA.md` — field-by-field schema of every content type. Read before editing content.
+- `docs/deploy-vm.md` — runbook for standing up a Linux VM: IP-only over HTTP, then domain
+  and HTTPS, then the security settings worth having. Written to be followed top to bottom.
 - `docs/spec-a-data.md`, `docs/spec-b-generator.md` — original build specs. Deviations from
   spec B are listed at the end of `README.md`.

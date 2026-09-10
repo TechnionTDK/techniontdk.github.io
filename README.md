@@ -105,6 +105,10 @@ Note the `--delete` flag: anything on the server that is not in `_site/` is remo
 It is worth running `npm run build && npm run linkcheck` before a deploy that touched anything
 structural — it catches a renamed slug that left dangling links behind.
 
+Setting up a server from scratch — a Linux VM on a bare IP first, then a domain with HTTPS,
+plus the security settings that matter for a static site — is written up step by step in
+[`docs/deploy-vm.md`](docs/deploy-vm.md).
+
 ## Commands
 
 | Command | What it does |
