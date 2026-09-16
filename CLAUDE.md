@@ -16,8 +16,9 @@ The site builds clean: `npm run build` writes 108 pages and `npm run linkcheck` 
 4 pages, migrated from the WordPress site — `MIGRATION_REPORT.md` records the judgment calls
 that migration made.
 
-Not done: the site has never been deployed (`deploy.env` does not exist yet), and there is no
-CI workflow.
+Not done: the site has never been published. The repo is renamed `techniontdk.github.io` and
+`.github/workflows/deploy.yml` is in place; Pages still has to be switched to the Actions
+source, and the first push to `main` will then publish — see `docs/deploy.md`.
 
 ## Rules
 - Every fact lives in exactly one file. Cross-references use slugs (filenames without `.md`).
@@ -75,12 +76,12 @@ The formats and the rules for keeping recipes honest are in `docs/playbook/INDEX
 - `npm run dev` — local preview at http://localhost:8080 with live reload on `content/` and `src/`
 - `npm run build` — validate, then produce `_site/`
 - `npm run linkcheck` — after a build: every internal link, anchor and asset resolves
-- `npm run deploy` — build, then rsync `_site/` to the CS server (config in `deploy.env`, not committed)
+- publishing is `git push` — GitHub Actions builds and deploys to Pages (see `docs/deploy.md`)
 
 ## Docs
 - `README.md` — how to preview, edit, tune the design and deploy. Start here.
 - `content/SCHEMA.md` — field-by-field schema of every content type. Read before editing content.
 - `docs/playbook/INDEX.md` — index of content-update recipes, one line each. Read before any
   data task; see "Content update tasks" above.
-- `docs/deploy-vm.md` — runbook for standing up a Linux VM: IP-only over HTTP, then domain
-  and HTTPS, then the security settings worth having. Written to be followed top to bottom.
+- `docs/deploy.md` — how publishing works: GitHub Actions → GitHub Pages, the one-time setup,
+  and what has to happen for `tdk.cs.technion.ac.il` to answer.

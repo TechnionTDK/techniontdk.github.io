@@ -22,8 +22,8 @@ npm run dev          # preview at http://localhost:8080
 
 Leave `npm run dev` running while you work. It rebuilds and reloads the browser on every save,
 in both `content/` and `src/` — so **no, you do not regenerate the site by hand after a data
-change.** You only run a build explicitly when you are about to publish (`npm run deploy` does
-it for you) or when you want to run the link checker.
+change.** You only run a build explicitly when you want to run the link checker; publishing
+runs its own build on GitHub.
 
 ## The everyday loop
 
@@ -110,26 +110,16 @@ entry, a news teaser). Changing `partials/publication.njk` changes how a paper i
 ### Publishing
 
 ```sh
-npm run deploy
+git push
 ```
 
-That validates, builds, and rsyncs. Before the first deploy, set up the server details once:
+That is the whole deploy. A GitHub Actions workflow validates the content, builds, runs the
+link checker and publishes to GitHub Pages on every push to `main`; if validation fails,
+nothing is published and the live site is untouched. Watch it in the Actions tab, or with
+`gh run watch` — about a minute.
 
-```sh
-cp deploy.env.example deploy.env
-$EDITOR deploy.env          # DEPLOY_HOST, DEPLOY_USER, DEPLOY_PATH
-```
-
-`deploy.env` is gitignored because it holds server details. The script prints the `rsync`
-command before running it and aborts with an explanation if the file is missing or incomplete.
-Note the `--delete` flag: anything on the server that is not in `_site/` is removed.
-
-It is worth running `npm run build && npm run linkcheck` before a deploy that touched anything
-structural — it catches a renamed slug that left dangling links behind.
-
-Setting up a server from scratch — a Linux VM on a bare IP first, then a domain with HTTPS,
-plus the security settings that matter for a static site — is written up step by step in
-[`docs/deploy-vm.md`](docs/deploy-vm.md).
+The one-time setup, and what has to happen for the site to answer at
+`tdk.cs.technion.ac.il`, are in [`docs/deploy.md`](docs/deploy.md).
 
 ## Commands
 
@@ -139,7 +129,6 @@ plus the security settings that matter for a static site — is written up step 
 | `npm run validate` | Checks `content/` against the schema. Must pass with zero errors. |
 | `npm run build` | Validates, then writes `_site/`. |
 | `npm run linkcheck` | After a build: verifies every internal link, anchor and asset in `_site/` resolves. |
-| `npm run deploy` | Builds, then rsyncs `_site/` to the CS server. |
 
 ## Troubleshooting
 
@@ -218,9 +207,11 @@ src/
 tools/
   validate.js     the content validator (npm run validate)
   linkcheck.js    internal link checker (npm run linkcheck)
-  deploy.sh       rsync to the CS server (npm run deploy)
   scrape/         one-off WordPress migration tool; do not re-run
-docs/             the original build specifications
+.github/workflows/deploy.yml   builds and publishes to GitHub Pages on push to main
+docs/
+  deploy.md       how publishing works — read before the first deploy
+  playbook/       content-update recipes
 ```
 
 ## Adding a new page type
@@ -250,7 +241,6 @@ each one is written down so you can tell whether it still does.
 - **No `@11ty/eleventy-img`.** `assets/` is copied through unchanged and CSS does the cropping
   (`aspect-ratio` + `object-fit`), which keeps the dependency list to Eleventy alone and the
   build under a second. Worth revisiting if the news galleries grow much larger.
-- **No GitHub Actions workflow**, since the project is not a git repository yet.
 - **`/publications/` lists every paper, not a curated subset.** The page began as a hand-picked
   "selected publications" list and went six years without an update: the only routine that ever
   ran was "a paper was accepted, write news", and that produced no publication record. Papers are

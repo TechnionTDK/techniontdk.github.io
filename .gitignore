@@ -1,5 +1,4 @@
 node_modules/
 _site/
-deploy.env
 tools/scrape/cache/
 .DS_Store
