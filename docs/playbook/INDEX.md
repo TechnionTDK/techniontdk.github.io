@@ -23,8 +23,9 @@ so list the words the manager actually uses, not a summary of the steps. -->
 ## When there is no matching recipe
 
 Do not guess a convention that isn't in `content/SCHEMA.md`. Ask the manager the questions
-the task leaves open — the judgment calls, not the mechanics — then do the work, then record
-a recipe here. See the protocol in `CLAUDE.md` ("Content update tasks").
+the task leaves open — the judgment calls, not the mechanics — then do the work. Whether it
+also becomes a recipe is the manager's call, not yours: propose one in a line and write it
+only if they agree. See the protocol in `CLAUDE.md` ("Content update tasks").
 
 ## Recipe file format
 

@@ -51,9 +51,12 @@ guide, mark someone an alumnus — runs through the playbook in `docs/playbook/`
    judgment calls (which research areas, does this also become a news item, is it selected),
    never the mechanics that `content/SCHEMA.md` already answers. Batch the questions into one
    round rather than dripping them out. Then do the work.
-3. **Record it.** When the task is done, write `docs/playbook/<task-slug>.md` and add its one
-   line to the index — the questions asked, the answers given, the steps actually run. Say in
-   one line what was recorded, so the manager can correct it while it is fresh.
+3. **Ask before recording.** Never write a recipe on your own initiative. When the task is
+   done, say in one line what a recipe would carry — the judgment, not the steps — and write
+   `docs/playbook/<task-slug>.md` plus its index line only if the manager says yes. A recipe
+   earns its place when the task has structure worth remembering across sessions: several
+   files, cross-references between them, or a question that would otherwise be asked every
+   time. A one-off edit to a single file's text does not; do that work and stop.
 4. **Keep it true.** A correction mid-task, a settled question, or a new variant is folded into
    the existing recipe (bump `Updated:`), never added as a second recipe for the same task.
 
