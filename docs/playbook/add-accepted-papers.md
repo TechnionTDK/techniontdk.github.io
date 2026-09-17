@@ -2,7 +2,7 @@
 
 Triggers: a paper was accepted, we got a paper into X, add these papers, announce the
 acceptance, N papers accepted to X, published in journal Y, write up this acceptance
-Updated: 2026-09-10
+Updated: 2026-09-17
 
 ## Ask first
 - **Which research areas?** Only when the fit is not obvious from the title. `areas` is
@@ -47,8 +47,9 @@ fields `content/SCHEMA.md` already answers.
    usually the journal version of the same work, which is a *separate* publication file.
    Cite conferences `VENUE YEAR: pages`, journals `Journal vol(issue): pages (year)`.
    No confident match: omit `citation` and `links` rather than inventing them.
-3. If this is an announcement, write the news item as usual and add `publications: [slug, ...]`
-   in the order announced. If it is a plain filing, stop here — the record stands on its own.
+3. If this is an announcement, write the news item per [add-news-item](add-news-item.md) and add
+   `publications: [slug, ...]` in the order announced. If it is a plain filing, stop here — the
+   record stands on its own.
 4. If a lab member is spelled differently in the author list, add that spelling to their
    `aliases` in `content/people/` — never edit the author string.
 

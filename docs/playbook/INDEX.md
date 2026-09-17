@@ -14,6 +14,7 @@ task at hand. To search by keyword instead of scanning: `grep -ril "<word>" docs
 ## Recipes
 
 - [add-accepted-papers](add-accepted-papers.md) — file an accepted/published paper and announce it. Triggers: paper accepted, we got a paper into, add these papers, announce the acceptance, N papers accepted to, published in journal.
+- [add-news-item](add-news-item.md) — write up anything that happened as a news item. Triggers: add a news item, add a new item, write up this event, we just had a visit, a talk by, we hosted, X gave a talk, add this to the news.
 
 <!-- One line per recipe, alphabetical by slug. Format:
 - [slug](slug.md) — what the task does. Triggers: phrase, phrase, phrase.
