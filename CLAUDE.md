@@ -16,9 +16,10 @@ The site builds clean: `npm run build` writes 108 pages and `npm run linkcheck` 
 4 pages, migrated from the WordPress site — `MIGRATION_REPORT.md` records the judgment calls
 that migration made.
 
-Not done: the site has never been published. The repo is renamed `techniontdk.github.io` and
-`.github/workflows/deploy.yml` is in place; Pages still has to be switched to the Actions
-source, and the first push to `main` will then publish — see `docs/deploy.md`.
+The site is live at <https://techniontdk.github.io/>, published by Actions on every push to
+`main`. CS IT pointed `tdk.cs.technion.ac.il` at it with a DNS `CNAME` on 2026-09-17; the
+custom domain still has to be set under Settings → Pages, after which GitHub issues the
+certificate on its own — see `docs/deploy.md`.
 
 ## Rules
 - Every fact lives in exactly one file. Cross-references use slugs (filenames without `.md`).

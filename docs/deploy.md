@@ -40,21 +40,40 @@ Then watch it land: the **Actions** tab, or `gh run watch`. A build takes about 
 
 ## The real address
 
-The lab's address stays `tdk.cs.technion.ac.il`. Getting visitors there is a request to CS IT,
-and how they do it decides whether one more thing is needed here:
+The lab's address is `tdk.cs.technion.ac.il`. CS IT (Konstantin) set the DNS record on
+2026-09-17:
 
-- **A DNS `CNAME` record** pointing `tdk.cs.technion.ac.il` at `techniontdk.github.io` — the
-  right answer. Then set Settings → Pages → Custom domain to `tdk.cs.technion.ac.il` (GitHub
-  commits a `CNAME` file for you) and tick **Enforce HTTPS** once the certificate is issued,
-  which takes a few minutes. Nothing else changes: the site is still served from a domain
-  root, so every path keeps working, and `site.url` in `content/site.yaml` is already correct.
-- **An HTTP redirect** from the CS web server to `techniontdk.github.io` — works, but the
-  github.io name is what visitors see and what search engines index. If it ends up being this,
-  change `url:` in `content/site.yaml` to match, or `feed.xml` and `sitemap.xml` will point at
-  a domain the site is not served from.
+```
+tdk.cs.technion.ac.il.  CNAME  techniontdk.github.io.
+```
 
-Until one of those is in place, `feed.xml` and `sitemap.xml` are the only wrong things on the
-site — they embed `https://tdk.cs.technion.ac.il` from `site.url`. Harmless in the meantime.
+That is the whole DNS side. What remains is on GitHub: **Settings → Pages → Custom domain →
+`tdk.cs.technion.ac.il` → Save**, then tick **Enforce HTTPS** once the certificate is issued.
+Until the domain is set there, GitHub serves the hostname a 404 and presents a `*.github.io`
+certificate, because it does not yet know that this repo owns the name.
+
+Publishing here is a custom Actions workflow, so GitHub commits no `CNAME` file and does not
+need one — the domain lives in the Pages settings alone. Nothing in `content/` or `src/`
+changes: `url:` in `content/site.yaml` is already `https://tdk.cs.technion.ac.il`, and every
+path is root-relative, so the site is served identically under either name.
+`techniontdk.github.io` keeps working and redirects to the custom domain.
+
+### The certificate
+
+GitHub Pages obtains and renews a Let's Encrypt certificate for the custom domain itself, at
+no cost and with no action from us. **No certificate has to be bought or installed** — not
+from Harica, not from anyone; there is no server of ours to install one on.
+
+The one thing that could have blocked it is the CAA record on `technion.ac.il`, which limits
+who may issue for the zone. It lists `letsencrypt.org` alongside `harica.gr`, `sectigo.com`
+and `digicert.com`, so GitHub's issuance is permitted:
+
+```sh
+dig +short technion.ac.il CAA
+```
+
+Issuance usually takes minutes; GitHub allows up to 24 hours before **Enforce HTTPS** becomes
+tickable. Leave it unticked until then — ticking is what stops HTTP being served at all.
 
 ## Security
 
@@ -80,5 +99,7 @@ not a branch. Otherwise it is the CDN cache — hard-reload (Cmd/Ctrl+Shift+R).
 **The site is unstyled and every link 404s.** The repo is not named `techniontdk.github.io`,
 so it is being served from `/tdk-website/`. See step 1.
 
-**Custom domain shows a certificate error.** GitHub issues the certificate after the DNS record
-resolves; give it a few minutes, then re-tick Enforce HTTPS.
+**Custom domain shows a certificate error, or 404s.** The domain is not set under
+Settings → Pages → Custom domain, or the certificate has not been issued yet. Set it, then
+wait — minutes usually, up to 24 hours before Enforce HTTPS can be ticked. Check the DNS side
+with `dig +short tdk.cs.technion.ac.il CNAME`, which must answer `techniontdk.github.io.`
