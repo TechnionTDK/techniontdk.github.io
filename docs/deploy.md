@@ -47,10 +47,17 @@ The lab's address is `tdk.cs.technion.ac.il`. CS IT (Konstantin) set the DNS rec
 tdk.cs.technion.ac.il.  CNAME  techniontdk.github.io.
 ```
 
-That is the whole DNS side. What remains is on GitHub: **Settings → Pages → Custom domain →
-`tdk.cs.technion.ac.il` → Save**, then tick **Enforce HTTPS** once the certificate is issued.
-Until the domain is set there, GitHub serves the hostname a 404 and presents a `*.github.io`
-certificate, because it does not yet know that this repo owns the name.
+The matching half is on GitHub: **Settings → Pages → Custom domain → `tdk.cs.technion.ac.il`
+→ Save**, then **Enforce HTTPS** once the certificate is issued. Both were done the same day,
+and the site has served under its own name since. Until the domain is set there, GitHub answers
+the hostname with a 404 and a `*.github.io` certificate, because it does not yet know which
+repo owns the name — that, not a missing certificate, is what a 404 on a fresh domain means.
+
+Enforce HTTPS is what makes `http://` a 301 to `https://`. Expect stale answers for up to an
+hour after either change: GitHub's CDN caches the pre-domain 404 and the old redirect target
+per edge, so one region can 404 while another is already correct, and there is no purge
+control on Pages. It ages out on its own; re-adding the domain would only restart certificate
+issuance.
 
 Publishing here is a custom Actions workflow, so GitHub commits no `CNAME` file and does not
 need one — the domain lives in the Pages settings alone. Nothing in `content/` or `src/`
