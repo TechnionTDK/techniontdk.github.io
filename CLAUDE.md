@@ -10,11 +10,11 @@ replacing a WordPress site. Two strictly separated halves:
 
 ## Status
 
-The site builds clean: `npm run build` writes 108 pages and `npm run linkcheck` passes.
+The site builds clean: `npm run build` writes 109 pages and `npm run linkcheck` passes.
 
-`content/` holds 7 areas, 43 people, 93 publications, 87 news items, 2 projects, 1 guide and
-4 pages, migrated from the WordPress site — `MIGRATION_REPORT.md` records the judgment calls
-that migration made.
+`content/` holds 7 areas, 43 people, 93 publications, 88 news items, 2 projects, 1 guide,
+10 courses and 3 pages. Most of it was migrated from the WordPress site —
+`MIGRATION_REPORT.md` records the judgment calls that migration made.
 
 The site is live at <https://tdk.cs.technion.ac.il> under its own name and certificate,
 published by Actions on every push to `main`. `techniontdk.github.io` redirects to it. The

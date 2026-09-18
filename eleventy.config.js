@@ -20,6 +20,7 @@ const PAGE_ROUTES = {
   'news.njk':         { permalink: '/news/',       layout: 'layouts/base.njk' },
   'projects.njk':     { permalink: '/projects/',   layout: 'layouts/base.njk' },
   'guides.njk':       { permalink: '/guides/',     layout: 'layouts/base.njk' },
+  'courses.njk':      { permalink: '/courses/',    layout: 'layouts/base.njk' },
   '404.njk':          { permalink: '/404.html',    layout: 'layouts/base.njk' },
   'sitemap.njk':      { permalink: '/sitemap.xml' },
   'feed.njk':         { permalink: '/feed.xml' },
@@ -27,7 +28,7 @@ const PAGE_ROUTES = {
 
 // Content types that are data only: they are rendered into listings by other
 // templates and never get a URL of their own.
-const DATA_ONLY = ['people', 'publications', 'projects'];
+const DATA_ONLY = ['people', 'publications', 'projects', 'courses'];
 
 const NO_PAGE = { permalink: false };
 
@@ -95,6 +96,24 @@ function comparePeople(a, b) {
 
 function comparePublications(a, b) {
   return b.data.year - a.data.year || a.data.title.localeCompare(b.data.title);
+}
+
+// Courses read down the lab: grouped by their first instructor, in the same
+// order the People page uses, so the lab head's courses come first rather than
+// whoever happens to sort first alphabetically. Courses with no lab instructor
+// follow, and the catalogue number orders one instructor's courses among
+// themselves.
+function compareCourses(a, b) {
+  const first = (c) => peopleBySlug.get((c.data.instructors ?? [])[0]) ?? null;
+  const pa = first(a);
+  const pb = first(b);
+  if (pa && pb && pa !== pb) return comparePeople(pa, pb);
+  if (!pa !== !pb) return pa ? -1 : 1;
+  const na = a.data.number ?? '';
+  const nb = b.data.number ?? '';
+  if (na && nb) return na.localeCompare(nb);
+  if (na !== nb) return na ? -1 : 1;
+  return a.data.title.localeCompare(b.data.title);
 }
 
 // --- date helpers ----------------------------------------------------------
@@ -187,6 +206,11 @@ export default function (eleventyConfig) {
   eleventyConfig.addCollection('projects', (api) =>
     api.getFilteredByGlob('./content/projects/*.md')
       .sort((a, b) => a.data.title.localeCompare(b.data.title)));
+
+  // Registered after `people`, so peopleBySlug is populated when compareCourses
+  // runs; it falls back to number order for anyone it cannot resolve.
+  eleventyConfig.addCollection('courses', (api) =>
+    api.getFilteredByGlob('./content/courses/*.md').sort(compareCourses));
 
   eleventyConfig.addCollection('contentPages', (api) =>
     api.getFilteredByGlob('./content/pages/*.md'));

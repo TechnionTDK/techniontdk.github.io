@@ -598,7 +598,7 @@ th, td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom
 }
 
 /* --------------------------------------------------------------------------
-   Areas, projects, guides
+   Areas, projects, guides, courses
    -------------------------------------------------------------------------- */
 
 .area__header { margin-bottom: var(--space-5); }
@@ -630,6 +630,20 @@ th, td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom
 .guide:first-child { padding-top: 0; }
 .guide__title { font-size: var(--size-md); margin-bottom: var(--space-2); }
 .guide__summary { margin-bottom: var(--space-2); color: var(--color-muted); }
+
+.courses { list-style: none; margin: 0; padding: 0; }
+.course { padding-block: var(--space-5); border-bottom: var(--rule); }
+.course:first-child { padding-top: 0; }
+.course__title { font-size: var(--size-md); margin-bottom: var(--space-1); }
+.course__number {
+  font-family: var(--font-mono);
+  font-size: var(--size-sm);
+  font-weight: var(--weight-normal);
+  color: var(--color-faint);
+}
+.course__instructors { font-size: var(--size-sm); color: var(--color-muted); margin-bottom: var(--space-2); }
+.course__body { font-size: var(--size-sm); color: var(--color-muted); }
+.course__body p:last-child { margin-bottom: 0; }
 
 /* --------------------------------------------------------------------------
    Footer

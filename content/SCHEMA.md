@@ -37,13 +37,14 @@ which enforces every rule below and must pass with zero errors.
 | Type | Directory | Slug shape |
 |---|---|---|
 | Site settings | `site.yaml` | — (single file) |
-| Page | `pages/` | fixed: `home`, `about`, `contact`, `courses` |
+| Page | `pages/` | fixed: `home`, `about`, `contact` |
 | Person | `people/` | `firstname-lastname` |
 | Research area | `areas/` | `topic-name` |
 | Publication | `publications/` | `<year>-<venue>-<keywords>` |
 | News item | `news/` | `YYYY-MM-DD-<short-title>` |
 | Project | `projects/` | `project-title` |
 | Guide | `guides/` | `guide-title` |
+| Course | `courses/` | `course-title` |
 
 ---
 
@@ -71,6 +72,7 @@ footer:
 home:
   news_count: 5                # how many news items on the home page
   photo_news_count: 4          # how many photo-bearing news items on the home page
+courses_intro: <intro paragraph shown above the courses list>
 projects_intro: <intro paragraph shown above the projects list>
 ```
 
@@ -80,7 +82,7 @@ projects_intro: <intro paragraph shown above the projects list>
 
 ## `pages/*.md`
 
-A fixed set of four: `home.md`, `about.md`, `contact.md`, `courses.md`. You may edit them but
+A fixed set of three: `home.md`, `about.md`, `contact.md`. You may edit them but
 must not add or remove pages here — a new page needs a generator change.
 
 | Field | Required | Type | Notes |
@@ -312,6 +314,46 @@ Body in Markdown.
 
 ---
 
+## `courses/<slug>.md`
+
+Courses taught by lab members. Slug is the course title in lowercase-kebab. The body is a short
+description of the course in Markdown, and may be empty.
+
+| Field | Required | Type | Notes |
+|---|---|---|---|
+| `title` | yes | text | The catalogue's English title, so title and `number` agree. |
+| `number` | no | quoted text | Six digits, e.g. `"236028"`. Quote it — it is an identifier, not a number. |
+| `instructors` | no | list of `people` slugs | Lab members only. |
+| `url` | no | url | The course's own site if it has one, otherwise its catalogue page. |
+
+```yaml
+---
+title: Selected Topics on Deep Learning over Structured Data
+number: "236028"
+instructors: [benny-kimelfeld]
+url: https://bennykcs.github.io/structml-course/
+---
+Short description in Markdown.
+```
+
+**`number` is optional** because a course taught under an umbrella number — Seminar in Computer
+Science N, Advanced Topics in Computer Science N — has no catalogue entry of its own to cite or
+link. `npm run validate` warns about a course with no number, since it cannot then be linked.
+
+**`instructors` names lab members only, by slug.** A course coordinated from outside the lab omits
+the field rather than repeating a name as text (rule 2) — the validator warns, which is the prompt
+to ask whether the course still belongs on the lab's page. The Technion course system names only
+one *responsible* person per course, so someone co-teaching without coordinating will not show up
+in it; add them here when you know.
+
+The paragraph introducing the courses page is `courses_intro` in `site.yaml`, not here.
+
+Courses are ordered by their first `instructor`, in the same order the people page uses, then by
+`number` within one instructor's courses; those with no instructor follow. There is no `order`
+field.
+
+---
+
 ## Common tasks
 
 **Add a person.** Create `people/<firstname-lastname>.md` with at least `name` and `status`
@@ -327,6 +369,10 @@ member's name is spelled differently there, add that spelling to their `aliases`
 changing the publication. List every research area the paper belongs to in `areas`, or omit the
 field when the fit is unclear. If the paper is being *announced*, the news item points at it with
 `publications:` and does not restate its title and authors.
+
+**Add a course.** Create `content/courses/<course-title>.md` with `title`, and `number`,
+`instructors` and `url` when you have them. Check the number against the faculty's course list
+(<https://www.cs.technion.ac.il/courses/>) so the title matches the catalogue's.
 
 **Add a news item.** Filename date must match the `date` field. Put images in
 `/assets/images/news/<year>/`.

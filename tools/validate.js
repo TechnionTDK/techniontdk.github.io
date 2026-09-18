@@ -98,11 +98,30 @@ const SCHEMA = {
     req: { title: 'string', summary: 'text', updated: 'date' },
     opt: { author: 'slugRef:people', order: 'int' },
   },
+  courses: {
+    dir: 'courses',
+    req: { title: 'string' },
+    // `number` is optional because a course taught under an umbrella number
+    // (Seminar in Computer Science N, Advanced Topics in Computer Science N)
+    // has no catalogue entry of its own to cite or link.
+    // `instructors` names lab members only, by slug: a course coordinated from
+    // outside the lab omits the field rather than repeating a name as text.
+    opt: {
+      number: 'string',
+      instructors: 'list:slugRef:people',
+      url: 'url',
+    },
+    extra(fm, err) {
+      if ('number' in fm && !/^\d{6}$/.test(String(fm.number))) {
+        err('number: expected six digits, quoted (e.g. "236028")');
+      }
+    },
+  },
   pages: {
     dir: 'pages',
     req: { title: 'string' },
     opt: {},
-    fixed: ['home', 'about', 'contact', 'courses'],
+    fixed: ['home', 'about', 'contact'],
   },
 };
 
@@ -325,6 +344,12 @@ function checkWarnings() {
   }
   for (const doc of docs.people ?? []) {
     if (doc.fm.status === 'active' && !doc.fm.photo) warnings.push(`${doc.file}: active person has no photo`);
+  }
+  // A course with no instructor is either taught from outside the lab or simply
+  // unfiled; either way it is worth a look before it sits on the page for years.
+  for (const doc of docs.courses ?? []) {
+    if (!(doc.fm.instructors ?? []).length) warnings.push(`${doc.file}: course lists no instructors`);
+    if (!doc.fm.number) warnings.push(`${doc.file}: course has no catalogue number, so it cannot be linked`);
   }
   // Author strings that match no person are informational: most co-authors are external.
   const known = new Set();
