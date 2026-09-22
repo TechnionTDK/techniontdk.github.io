@@ -5,25 +5,23 @@ title: Courses
   <h1>Courses</h1>
   <p class="lede">{{ site.courses_intro }}</p>
 
+  <h2 class="courses__heading">Courses given in the current semester ({{ site.course_semesters[0] }})</h2>
+  {% set showSemester = false %}
+  {% if collections.courseRunsCurrent.length %}
   <ul class="courses">
-    {% for course in collections.courses %}
-    <li class="course">
-      <h2 class="course__title">
-        {% if course.data.url %}<a href="{{ course.data.url }}" target="_blank" rel="noopener">{{ course.data.title }}</a>
-        {%- else %}{{ course.data.title }}{% endif %}
-        {%- if course.data.number %} <span class="course__number">{{ course.data.number }}</span>{% endif %}
-      </h2>
-      {% if course.data.instructors %}
-      <p class="course__instructors">
-        {%- for slug in course.data.instructors %}{% set p = slug | personBySlug %}
-          {%- if p %}{% if p.data.honorific %}{{ p.data.honorific }} {% endif %}{{ p.data.name }}
-          {%- else %}{{ slug }}{% endif -%}
-          {%- if not loop.last %}, {% endif -%}
-        {% endfor -%}
-      </p>
-      {% endif %}
-      {% if course.templateContent %}<div class="course__body prose">{{ course.templateContent | safe }}</div>{% endif %}
-    </li>
-    {% endfor %}
+    {% for run in collections.courseRunsCurrent %}{% include "partials/course-run.njk" %}{% endfor %}
   </ul>
+  {% else %}
+  <p class="courses__empty">No lab course is running this semester.</p>
+  {% endif %}
+
+  <h2 class="courses__heading">Courses given in previous semesters ({{ site.course_semesters.slice(1) | join(", ") }})</h2>
+  {% set showSemester = true %}
+  {% if collections.courseRunsPrevious.length %}
+  <ul class="courses">
+    {% for run in collections.courseRunsPrevious %}{% include "partials/course-run.njk" %}{% endfor %}
+  </ul>
+  {% else %}
+  <p class="courses__empty">Nothing in these semesters.</p>
+  {% endif %}
 </div>

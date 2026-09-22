@@ -8,6 +8,18 @@ import yaml from 'js-yaml';
 const ROOT = path.resolve(import.meta.dirname, '..');
 const CONTENT = path.join(ROOT, 'content');
 
+// Course runs name a semester, and the list of semesters the page covers is a
+// site-wide setting. Load it once here so the schema can check each run against
+// it; checkSite() does its own read and reports a missing or broken file.
+const COURSE_SEMESTERS = (() => {
+  try {
+    const site = yaml.load(fs.readFileSync(path.join(CONTENT, 'site.yaml'), 'utf8'));
+    return Array.isArray(site?.course_semesters) ? site.course_semesters : [];
+  } catch {
+    return [];
+  }
+})();
+
 // ---------------------------------------------------------------------------
 // The schema. This object is the single source of truth for the checks below;
 // content/SCHEMA.md documents the same rules for humans and agents.
@@ -100,20 +112,20 @@ const SCHEMA = {
   },
   courses: {
     dir: 'courses',
-    req: { title: 'string' },
-    // `number` is optional because a course taught under an umbrella number
-    // (Seminar in Computer Science N, Advanced Topics in Computer Science N)
-    // has no catalogue entry of its own to cite or link.
-    // `instructors` names lab members only, by slug: a course coordinated from
-    // outside the lab omits the field rather than repeating a name as text.
+    // A course is listed once per *run*: the same course can run in several
+    // semesters under different lecturers, so who gives it and which semester's
+    // page to link live on the run, not on the course.
+    req: { title: 'string', runs: 'courseRuns' },
+    // `number` is optional because a course may have no catalogue entry to cite.
+    // `url` is the course's own site when it has one, and wins over every run's
+    // `url` (which is the faculty or Technion course page for that semester).
     opt: {
       number: 'string',
-      instructors: 'list:slugRef:people',
       url: 'url',
     },
     extra(fm, err) {
-      if ('number' in fm && !/^\d{6}$/.test(String(fm.number))) {
-        err('number: expected six digits, quoted (e.g. "236028")');
+      if ('number' in fm && !/^\d{8}$/.test(String(fm.number))) {
+        err('number: expected eight digits, quoted (e.g. "02360028")');
       }
     },
   },
@@ -126,6 +138,7 @@ const SCHEMA = {
 };
 
 const LINK_KEYS = ['paper', 'arxiv', 'doi', 'code', 'slides', 'video'];
+const RUN_KEYS = ['semester', 'instructors', 'lecturer', 'url'];
 
 // ---------------------------------------------------------------------------
 const errors = [];
@@ -218,6 +231,38 @@ function checkValue(type, where, field, spec, value, err) {
       }
       if (Object.keys(value).length === 0) err(`${field}: empty (omit the field instead)`);
       break;
+    case 'courseRuns':
+      if (!Array.isArray(value) || value.length === 0) {
+        return err(`${field}: expected a non-empty list of runs`);
+      }
+      value.forEach((r, i) => {
+        if (typeof r !== 'object' || r === null || Array.isArray(r)) {
+          return err(`${field}[${i}]: expected a mapping`);
+        }
+        for (const k of Object.keys(r)) {
+          if (!RUN_KEYS.includes(k)) {
+            err(`${field}[${i}].${k}: unknown key (allowed: ${RUN_KEYS.join(', ')})`);
+          }
+        }
+        if (!COURSE_SEMESTERS.includes(r.semester)) {
+          err(`${field}[${i}].semester: "${r.semester}" is not one of site.yaml's course_semesters (${COURSE_SEMESTERS.join(', ') || 'none defined'})`);
+        }
+        // A lab member goes in `instructors` as a slug; anyone else is plain
+        // text in `lecturer`, because only lab members have a people file.
+        if ('instructors' in r && 'lecturer' in r) {
+          err(`${field}[${i}]: has both instructors and lecturer (a lab member goes in instructors, anyone else in lecturer)`);
+        }
+        if ('instructors' in r) {
+          if (Array.isArray(r.instructors) && r.instructors.length === 0) {
+            err(`${field}[${i}].instructors: empty (omit the field instead)`);
+          } else {
+            checkValue(type, where, `${field}[${i}].instructors`, 'list:slugRef:people', r.instructors, err);
+          }
+        }
+        if ('lecturer' in r) checkValue(type, where, `${field}[${i}].lecturer`, 'string', r.lecturer, err);
+        if ('url' in r) checkValue(type, where, `${field}[${i}].url`, 'url', r.url, err);
+      });
+      break;
     case 'collaborators':
       if (!Array.isArray(value)) return err(`${field}: expected a list`);
       value.forEach((c, i) => {
@@ -303,7 +348,7 @@ function checkSite() {
     return errors.push(`content/site.yaml: does not parse: ${e.message}`);
   }
   const err = (m) => errors.push(`content/site.yaml: ${m}`);
-  for (const k of ['name', 'short_name', 'url', 'description', 'logo', 'nav', 'footer', 'home']) {
+  for (const k of ['name', 'short_name', 'url', 'description', 'logo', 'nav', 'footer', 'home', 'course_semesters']) {
     if (!(k in site)) err(`missing key: ${k}`);
   }
   if (site.logo) checkAsset('logo', site.logo, err);
@@ -318,6 +363,17 @@ function checkSite() {
   }
   for (const k of ['news_count', 'photo_news_count']) {
     if (!Number.isInteger(site.home?.[k])) err(`home.${k}: expected an integer`);
+  }
+  // Newest first: the first entry is the current semester, and the courses page
+  // splits on it.
+  if ('course_semesters' in site) {
+    if (!Array.isArray(site.course_semesters) || site.course_semesters.length === 0) {
+      err('course_semesters: expected a non-empty list, newest first');
+    } else {
+      site.course_semesters.forEach((sem, i) => {
+        if (typeof sem !== 'string' || sem.trim() === '') err(`course_semesters[${i}]: expected a non-empty string`);
+      });
+    }
   }
 }
 
@@ -345,10 +401,13 @@ function checkWarnings() {
   for (const doc of docs.people ?? []) {
     if (doc.fm.status === 'active' && !doc.fm.photo) warnings.push(`${doc.file}: active person has no photo`);
   }
-  // A course with no instructor is either taught from outside the lab or simply
-  // unfiled; either way it is worth a look before it sits on the page for years.
+  // A course kept on the page although no run of it is given by a lab member is
+  // there only because the current semester runs it; worth a look each refresh.
   for (const doc of docs.courses ?? []) {
-    if (!(doc.fm.instructors ?? []).length) warnings.push(`${doc.file}: course lists no instructors`);
+    const runs = Array.isArray(doc.fm.runs) ? doc.fm.runs : [];
+    if (!runs.some((r) => (r?.instructors ?? []).length)) {
+      warnings.push(`${doc.file}: no run of this course is given by a lab member`);
+    }
     if (!doc.fm.number) warnings.push(`${doc.file}: course has no catalogue number, so it cannot be linked`);
   }
   // Author strings that match no person are informational: most co-authors are external.

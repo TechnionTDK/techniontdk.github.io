@@ -1,0 +1,27 @@
+{# One entry on the courses page: a single run of a course. `run` comes from the
+   courseRunsCurrent / courseRunsPrevious collections, which already resolved the
+   link. `showSemester` labels the run — needed in the previous-semesters list,
+   where several semesters sit together. #}
+{% set names %}
+  {%- if run.instructors.length -%}
+    {%- for slug in run.instructors %}{% set p = slug | personBySlug %}
+      {%- if p %}{% if p.data.honorific %}{{ p.data.honorific }} {% endif %}{{ p.data.name }}
+      {%- else %}{{ slug }}{% endif -%}
+      {%- if not loop.last %}, {% endif -%}
+    {% endfor -%}
+  {%- elif run.lecturer %}{{ run.lecturer }}{% endif -%}
+{% endset %}
+<li class="course">
+  <h3 class="course__title">
+    {% if run.url %}<a href="{{ run.url }}" target="_blank" rel="noopener">{{ run.course.data.title }}</a>
+    {%- else %}{{ run.course.data.title }}{% endif %}
+    {%- if run.course.data.number %} <span class="course__number">{{ run.course.data.number }}</span>{% endif %}
+  </h3>
+  {% if names | trim or showSemester %}
+  <p class="course__instructors">
+    {%- if names | trim %}<span class="course__lecturer">{{ names | trim }}</span>{% endif -%}
+    {%- if showSemester %}<span class="course__semester">{{ run.semester }}</span>{% endif -%}
+  </p>
+  {% endif %}
+  {% if run.course.templateContent %}<div class="course__body prose">{{ run.course.templateContent | safe }}</div>{% endif %}
+</li>

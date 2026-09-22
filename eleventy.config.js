@@ -6,6 +6,7 @@
 // documented in content/SCHEMA.md.
 
 import path from 'node:path';
+import siteData from './src/_data/site.js';
 
 // --- routing ---------------------------------------------------------------
 
@@ -98,22 +99,37 @@ function comparePublications(a, b) {
   return b.data.year - a.data.year || a.data.title.localeCompare(b.data.title);
 }
 
-// Courses read down the lab: grouped by their first instructor, in the same
+// The courses page lists one entry per *run* — a course that ran in three
+// semesters under two lecturers is three entries — so the collections below
+// flatten courses into runs. The link precedence is resolved here rather than
+// in the template: the course's own site, when it has one, beats the semester's
+// faculty or Technion course page.
+function courseRuns(api) {
+  return api.getFilteredByGlob('./content/courses/*.md').flatMap((course) =>
+    (course.data.runs ?? []).map((run) => ({
+      course,
+      semester: run.semester,
+      instructors: run.instructors ?? [],
+      lecturer: run.lecturer ?? null,
+      url: course.data.url ?? run.url ?? null,
+    })));
+}
+
+// Runs read down the lab: grouped by the run's first lab instructor, in the same
 // order the People page uses, so the lab head's courses come first rather than
-// whoever happens to sort first alphabetically. Courses with no lab instructor
-// follow, and the catalogue number orders one instructor's courses among
-// themselves.
-function compareCourses(a, b) {
-  const first = (c) => peopleBySlug.get((c.data.instructors ?? [])[0]) ?? null;
+// whoever happens to sort first alphabetically. Runs given from outside the lab
+// follow, and the catalogue number orders one instructor's runs among themselves.
+function compareCourseRuns(a, b) {
+  const first = (r) => peopleBySlug.get(r.instructors[0]) ?? null;
   const pa = first(a);
   const pb = first(b);
   if (pa && pb && pa !== pb) return comparePeople(pa, pb);
   if (!pa !== !pb) return pa ? -1 : 1;
-  const na = a.data.number ?? '';
-  const nb = b.data.number ?? '';
+  const na = a.course.data.number ?? '';
+  const nb = b.course.data.number ?? '';
   if (na && nb) return na.localeCompare(nb);
   if (na !== nb) return na ? -1 : 1;
-  return a.data.title.localeCompare(b.data.title);
+  return a.course.data.title.localeCompare(b.course.data.title);
 }
 
 // --- date helpers ----------------------------------------------------------
@@ -207,10 +223,22 @@ export default function (eleventyConfig) {
     api.getFilteredByGlob('./content/projects/*.md')
       .sort((a, b) => a.data.title.localeCompare(b.data.title)));
 
-  // Registered after `people`, so peopleBySlug is populated when compareCourses
-  // runs; it falls back to number order for anyone it cannot resolve.
-  eleventyConfig.addCollection('courses', (api) =>
-    api.getFilteredByGlob('./content/courses/*.md').sort(compareCourses));
+  // Registered after `people`, so peopleBySlug is populated when
+  // compareCourseRuns runs; it falls back to number order for anyone it cannot
+  // resolve. `course_semesters` is newest first, so [0] is the current semester
+  // and the rest are the previous ones the page still shows.
+  eleventyConfig.addCollection('courseRunsCurrent', (api) => {
+    const semesters = siteData().course_semesters ?? [];
+    return courseRuns(api).filter((r) => r.semester === semesters[0]).sort(compareCourseRuns);
+  });
+
+  eleventyConfig.addCollection('courseRunsPrevious', (api) => {
+    const semesters = siteData().course_semesters ?? [];
+    return courseRuns(api)
+      .filter((r) => r.semester !== semesters[0])
+      .sort((a, b) =>
+        semesters.indexOf(a.semester) - semesters.indexOf(b.semester) || compareCourseRuns(a, b));
+  });
 
   eleventyConfig.addCollection('contentPages', (api) =>
     api.getFilteredByGlob('./content/pages/*.md'));

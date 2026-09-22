@@ -631,6 +631,12 @@ th, td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom
 .guide__title { font-size: var(--size-md); margin-bottom: var(--space-2); }
 .guide__summary { margin-bottom: var(--space-2); color: var(--color-muted); }
 
+/* The courses page is two lists: the current semester, then the previous ones
+   it still covers. A course runs once per semester, so the same course can
+   appear in both, each entry naming whoever gives that run. */
+.courses__heading { margin-top: var(--space-7); }
+.courses__empty { font-size: var(--size-sm); color: var(--color-muted); }
+
 .courses { list-style: none; margin: 0; padding: 0; }
 .course { padding-block: var(--space-5); border-bottom: var(--rule); }
 .course:first-child { padding-top: 0; }
@@ -642,6 +648,9 @@ th, td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom
   color: var(--color-faint);
 }
 .course__instructors { font-size: var(--size-sm); color: var(--color-muted); margin-bottom: var(--space-2); }
+/* Decorative separator, so the semester label needs no punctuation of its own
+   and reads cleanly when the run names nobody. */
+.course__semester:not(:first-child)::before { content: "·"; margin-inline: var(--space-2); color: var(--color-faint); }
 .course__body { font-size: var(--size-sm); color: var(--color-muted); }
 .course__body p:last-child { margin-bottom: 0; }
 

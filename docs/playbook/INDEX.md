@@ -15,7 +15,7 @@ task at hand. To search by keyword instead of scanning: `grep -ril "<word>" docs
 
 - [add-accepted-papers](add-accepted-papers.md) — file an accepted/published paper and announce it. Triggers: paper accepted, we got a paper into, add these papers, announce the acceptance, N papers accepted to, published in journal.
 - [add-news-item](add-news-item.md) — write up anything that happened as a news item. Triggers: add a news item, add a new item, write up this event, we just had a visit, a talk by, we hosted, X gave a talk, add this to the news.
-- [refresh-courses](refresh-courses.md) — add a course, or bring the whole courses page back in step with what lab members actually teach. Triggers: add a course, add the advanced course, new course for the semester, update the courses page, who teaches what now, is the courses page current, courses this semester.
+- [refresh-courses](refresh-courses.md) — re-derive the whole courses page from the faculty registry for the current semester and the three before it. Triggers: add a course, add the advanced course, new course for the semester, update the courses page, who teaches what now, is the courses page current, courses this semester, which semesters, remove old courses.
 
 <!-- One line per recipe, alphabetical by slug. Format:
 - [slug](slug.md) — what the task does. Triggers: phrase, phrase, phrase.

@@ -72,6 +72,9 @@ footer:
 home:
   news_count: 5                # how many news items on the home page
   photo_news_count: 4          # how many photo-bearing news items on the home page
+course_semesters:              # semesters the courses page covers, newest first;
+  - Winter 2026-2027           # the first entry is the current semester
+  - Summer 2026
 courses_intro: <intro paragraph shown above the courses list>
 projects_intro: <intro paragraph shown above the projects list>
 ```
@@ -316,41 +319,63 @@ Body in Markdown.
 
 ## `courses/<slug>.md`
 
-Courses taught by lab members. Slug is the course title in lowercase-kebab. The body is a short
+Courses the lab teaches. Slug is the course title in lowercase-kebab. The body is a short
 description of the course in Markdown, and may be empty.
+
+A course is recorded **once per run** — one entry in `runs` for each semester it was given in
+the window the courses page covers (`course_semesters` in `site.yaml`). The same course can run
+in several semesters under different lecturers, so who gives it and which page to link live on
+the run, not on the course.
 
 | Field | Required | Type | Notes |
 |---|---|---|---|
 | `title` | yes | text | The catalogue's English title, so title and `number` agree. |
-| `number` | no | quoted text | Six digits, e.g. `"236028"`. Quote it — it is an identifier, not a number. |
+| `number` | no | quoted text | Eight digits as the faculty's *Number* column prints them, e.g. `"02360028"`. Quote it — it is an identifier with a leading zero, not a number. |
+| `url` | no | url | The course's own site, when it has one. It wins over every run's `url`. |
+| `runs` | yes | list of runs | Non-empty. See below. |
+
+Each entry in `runs`:
+
+| Field | Required | Type | Notes |
+|---|---|---|---|
+| `semester` | yes | text | One of `course_semesters` in `site.yaml`, spelled the same way. |
 | `instructors` | no | list of `people` slugs | Lab members only. |
-| `url` | no | url | The course's own site if it has one, otherwise its catalogue page. |
+| `lecturer` | no | text | The name, with honorific, of a lecturer who is **not** a lab member. |
+| `url` | no | url | That semester's faculty course page, else its Technion course page. |
 
 ```yaml
 ---
-title: Selected Topics on Deep Learning over Structured Data
-number: "236028"
-instructors: [benny-kimelfeld]
-url: https://bennykcs.github.io/structml-course/
+title: Databases
+number: "02360363"
+runs:
+  - semester: Winter 2026-2027
+    lecturer: Prof. Hagit Attiya
+    url: https://webcourse.cs.technion.ac.il/02360363/Winter2026-2027/
+  - semester: Spring 2026
+    instructors: [brit-youngmann]
+    url: https://webcourse.cs.technion.ac.il/02360363/Spring2026/
 ---
 Short description in Markdown.
 ```
 
-**`number` is optional** because a course taught under an umbrella number — Seminar in Computer
-Science N, Advanced Topics in Computer Science N — has no catalogue entry of its own to cite or
-link. `npm run validate` warns about a course with no number, since it cannot then be linked.
+**`instructors` and `lecturer` are mutually exclusive**, and a run may have neither. A lab
+member is named by slug, because their name and honorific live in `people/` (rule 2); anyone
+else is plain text, because their name is recorded nowhere else. A course no run of which is
+given by a lab member is on the page only because the current semester runs it — `npm run
+validate` warns, which is the prompt to ask whether it still belongs there.
 
-**`instructors` names lab members only, by slug.** A course coordinated from outside the lab omits
-the field rather than repeating a name as text (rule 2) — the validator warns, which is the prompt
-to ask whether the course still belongs on the lab's page. The Technion course system names only
-one *responsible* person per course, so someone co-teaching without coordinating will not show up
-in it; add them here when you know.
+**`number` is optional** because a course may have no catalogue entry of its own to cite.
+`npm run validate` warns about a course with no number, since it cannot then be linked.
 
-The paragraph introducing the courses page is `courses_intro` in `site.yaml`, not here.
+**Which link a run shows** is resolved by the generator: the course's `url` if it has one,
+otherwise the run's `url`.
 
-Courses are ordered by their first `instructor`, in the same order the people page uses, then by
-`number` within one instructor's courses; those with no instructor follow. There is no `order`
-field.
+The paragraph introducing the courses page is `courses_intro` in `site.yaml`, not here, and the
+semesters the page covers are `course_semesters`.
+
+Runs are ordered by their first lab instructor, in the same order the people page uses, then by
+`number`; runs given from outside the lab follow. In the previous-semesters list, semester
+recency comes first. There is no `order` field.
 
 ---
 
