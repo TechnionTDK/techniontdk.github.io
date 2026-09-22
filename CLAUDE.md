@@ -41,26 +41,47 @@ WordPress instance it replaces can be decommissioned — see `docs/deploy.md`.
 ## Content update tasks
 
 A request to change the *data* — add these papers, add a new member, write up this event, add a
-guide, mark someone an alumnus — runs through the playbook in `docs/playbook/`.
+guide, mark someone an alumnus — runs through the skills in `.claude/skills/`. Each one records
+what was decided the last time that task was done, so the same question is never asked twice.
 
-1. **Look first.** Read `docs/playbook/INDEX.md` — one line per recipe, cheap to read whole.
-   It is the only playbook file to open unprompted; `grep -ril "<word>" docs/playbook/` finds
-   a recipe by keyword. If a line matches the request, read that recipe and follow it.
+1. **Use the skill.** The skill descriptions are already in context; when one matches the
+   request, invoke it and follow it. `grep -ril "<word>" .claude/skills/` finds one by keyword.
 2. **No match — ask, then do.** Ask the manager only what the task genuinely leaves open: the
-   judgment calls (which research areas, does this also become a news item, is it selected),
-   never the mechanics that `content/SCHEMA.md` already answers. Batch the questions into one
-   round rather than dripping them out. Then do the work.
-3. **Ask before recording.** Never write a recipe on your own initiative. When the task is
-   done, say in one line what a recipe would carry — the judgment, not the steps — and write
-   `docs/playbook/<task-slug>.md` plus its index line only if the manager says yes. A recipe
-   earns its place when the task has structure worth remembering across sessions: several
-   files, cross-references between them, or a question that would otherwise be asked every
-   time. A one-off edit to a single file's text does not; do that work and stop.
+   judgment calls (which research areas, does this also become a news item), never the mechanics
+   that `content/SCHEMA.md` already answers. Batch the questions into one round rather than
+   dripping them out. Then do the work.
+3. **Ask before recording.** Never write a skill on your own initiative. When the task is done,
+   say in one line what a skill would carry — the judgment, not the steps — and write
+   `.claude/skills/<task-slug>/SKILL.md` only if the manager says yes. A skill earns its place
+   when the task has structure worth remembering across sessions: several files, cross-references
+   between them, or a question that would otherwise be asked every time. A one-off edit to a
+   single file's text does not; do that work and stop.
 4. **Keep it true.** A correction mid-task, a settled question, or a new variant is folded into
-   the existing recipe (bump `Updated:`), never added as a second recipe for the same task.
+   the existing skill (bump `Updated:`), never added as a second skill for the same task. A skill
+   that turns out to be wrong is deleted.
 
-The formats and the rules for keeping recipes honest are in `docs/playbook/INDEX.md`.
-`content/SCHEMA.md` stays the field reference: a recipe carries judgment, not field lists.
+`content/SCHEMA.md` stays the field reference: a skill carries judgment, not field lists.
+Record only what the schema does not already say, and link to it rather than repeat it, so the
+two never disagree. Keep a skill to one screen — if it grows past that, it is probably two tasks.
+The slug names the task, not the content type: `add-accepted-papers`, not `publications`. The
+`description` is what makes the skill findable without opening it, so it lists the phrasings the
+manager actually uses. The body follows the shape the existing three share:
+
+```markdown
+---
+name: <task-slug>
+description: <what the task does>. Use when the manager says <phrase>, <phrase>, <phrase>.
+---
+
+# <Task name>
+
+Updated: YYYY-MM-DD
+
+## Ask first      — only what the manager must decide and cannot be inferred.
+## Settled        — a policy decision and the date it was made, so it is never re-asked.
+## Steps          — imperative, with the exact command where there is one.
+## Check          — what proves it worked; `npm run validate` at minimum.
+```
 
 ## Where a change belongs
 - Colours, type, spacing, and *arrangement* (grid tracks, breakpoints) — `src/css/site.css`.
@@ -84,7 +105,7 @@ The formats and the rules for keeping recipes honest are in `docs/playbook/INDEX
 ## Docs
 - `README.md` — how to preview, edit, tune the design and deploy. Start here.
 - `content/SCHEMA.md` — field-by-field schema of every content type. Read before editing content.
-- `docs/playbook/INDEX.md` — index of content-update recipes, one line each. Read before any
-  data task; see "Content update tasks" above.
+- `.claude/skills/*/SKILL.md` — one skill per recurring content-update task, carrying what was
+  decided last time. See "Content update tasks" above.
 - `docs/deploy.md` — how publishing works: GitHub Actions → GitHub Pages, the one-time setup,
   and what has to happen for `tdk.cs.technion.ac.il` to answer.

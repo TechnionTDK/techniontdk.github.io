@@ -1,8 +1,10 @@
+---
+name: refresh-courses
+description: Re-derive the whole courses page from the Technion faculty registry for the current semester and the three before it. Use when the manager says add a course, add the advanced course, new course for the semester, update the courses page, who teaches what now, is the courses page current, courses this semester, which semesters, or remove old courses.
+---
+
 # Refresh the courses page
 
-Triggers: add a course, add the advanced course, new course for the semester, update the courses
-page, who teaches what now, is the courses page current, courses this semester, which semesters,
-remove old courses
 Updated: 2026-09-22
 
 The page covers a moving window: the current semester and the **three** before it. Everything
@@ -77,7 +79,7 @@ link is not evidence that the course runs this semester under that lecturer. `re
 - `npm run validate` — must pass. A "no run given by a lab member" warning is the list to raise
   with the manager, not an error to silence.
 - `npm run build && npm run linkcheck` — after any generator or template change.
-- Re-run step 2 and confirm it reproduces the runs now on the page. The recipe is only true if it does.
+- Re-run step 2 and confirm it reproduces the runs now on the page. The skill is only true if it does.
 
 ## Worked example
 September 2026: the window rule cut the page from ten courses to seven runs of five courses.

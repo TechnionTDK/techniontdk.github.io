@@ -50,8 +50,8 @@ If the browser stops updating, the build most likely failed — look at the term
 ### Common tasks
 
 Most requests come down to one or two files. You can edit them by hand, or ask the agent in
-plain language — it follows the recipes in [`docs/playbook/`](docs/playbook/INDEX.md), which
-record what was decided the last time so you are not asked the same question twice.
+plain language — it follows the skills in [`.claude/skills/`](.claude/skills/), which record
+what was decided the last time so you are not asked the same question twice.
 
 | What you want | What it takes |
 |---|---|
@@ -176,15 +176,15 @@ Two data conventions the generator leans on and that are worth keeping current:
   publication being edited.
 - **`areas` lives on the person and on the publication**, never on the area.
 
-### The playbook
+### Skills
 
-[`docs/playbook/`](docs/playbook/INDEX.md) holds recipes for the recurring update tasks — add
-these papers, add a new member, write up this event. It starts empty and grows: when you ask
-for something the playbook does not cover, the agent asks you the open questions, does the
-work, and then records what was decided as a new recipe, so the second time it does not ask
-again. `INDEX.md` is one line per recipe and is the only file read to find one.
+[`.claude/skills/`](.claude/skills/) holds one skill per recurring update task — announce
+accepted papers, write up a news item, refresh the courses page. The agent picks the matching
+one by itself; you can also name it outright (`/add-news-item`). It grows: when you ask for
+something no skill covers, the agent asks you the open questions, does the work, and then
+offers to record what was decided as a new skill, so the second time it does not ask again.
 
-Correct a recipe by saying so — it is folded into the existing file rather than piled up as a
+Correct a skill by saying so — it is folded into the existing file rather than piled up as a
 second version of the same task.
 
 ## Layout
@@ -211,7 +211,7 @@ tools/
 .github/workflows/deploy.yml   builds and publishes to GitHub Pages on push to main
 docs/
   deploy.md       how publishing works — read before the first deploy
-  playbook/       content-update recipes
+.claude/skills/   one skill per recurring content-update task
 ```
 
 ## Adding a new page type

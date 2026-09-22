@@ -1,7 +1,10 @@
+---
+name: add-accepted-papers
+description: File an accepted or published paper in content/publications/ and announce it as a news item. Use when the manager says a paper was accepted, we got a paper into X, add these papers, announce the acceptance, N papers accepted to X, published in journal Y, or write up this acceptance.
+---
+
 # Announce accepted papers
 
-Triggers: a paper was accepted, we got a paper into X, add these papers, announce the
-acceptance, N papers accepted to X, published in journal Y, write up this acceptance
 Updated: 2026-09-17
 
 ## Ask first
@@ -35,7 +38,7 @@ fields `content/SCHEMA.md` already answers.
 - **2026-09-10 — `/publications/` carries a year jump-nav**, reusing the `.jump` pattern from
   `/people/`. New years appear in it automatically; nothing to maintain.
 - **2026-09-10 — the 2017–2025 backlog was backfilled** from the 62 `paper`-tagged news items
-  (73 new records). That was a one-off; this recipe is the steady state.
+  (73 new records). That was a one-off; this skill is the steady state.
 
 ## Steps
 1. One file per paper: `content/publications/<year>-<venue>-<two-or-three-keywords>.md`.
@@ -47,7 +50,7 @@ fields `content/SCHEMA.md` already answers.
    usually the journal version of the same work, which is a *separate* publication file.
    Cite conferences `VENUE YEAR: pages`, journals `Journal vol(issue): pages (year)`.
    No confident match: omit `citation` and `links` rather than inventing them.
-3. If this is an announcement, write the news item per [add-news-item](add-news-item.md) and add
+3. If this is an announcement, write the news item per the `add-news-item` skill and add
    `publications: [slug, ...]` in the order announced. If it is a plain filing, stop here — the
    record stands on its own.
 4. If a lab member is spelled differently in the author list, add that spelling to their
