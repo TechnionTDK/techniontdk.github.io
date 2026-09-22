@@ -1,5 +1,5 @@
 ---
-name: add-news-item
+name: tdk-add-news-item
 description: Write up anything that happened as a news item in content/news/. Use when the manager says add a news item, add a new item, write up this event, we just had a visit, a talk by, we hosted, X gave a talk, or add this to the news.
 ---
 
@@ -26,7 +26,7 @@ Do not ask about those.
   `assets/images/news/` run from 336 to 3264px; there is no convention to match, so pick a sane
   size and move on. No cap has been set.
 - **2026-09-17 — the body carries the human part.** Anything the site already holds as data is
-  cross-referenced, not restated — see the `add-accepted-papers` skill for the paper case.
+  cross-referenced, not restated — see the `tdk-add-accepted-papers` skill for the paper case.
 
 ## Steps
 1. `content/news/YYYY-MM-DD-<short-title>.md`.

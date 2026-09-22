@@ -52,7 +52,7 @@ what was decided the last time that task was done, so the same question is never
    dripping them out. Then do the work.
 3. **Ask before recording.** Never write a skill on your own initiative. When the task is done,
    say in one line what a skill would carry — the judgment, not the steps — and write
-   `.claude/skills/<task-slug>/SKILL.md` only if the manager says yes. A skill earns its place
+   `.claude/skills/tdk-<task-slug>/SKILL.md` only if the manager says yes. A skill earns its place
    when the task has structure worth remembering across sessions: several files, cross-references
    between them, or a question that would otherwise be asked every time. A one-off edit to a
    single file's text does not; do that work and stop.
@@ -63,13 +63,15 @@ what was decided the last time that task was done, so the same question is never
 `content/SCHEMA.md` stays the field reference: a skill carries judgment, not field lists.
 Record only what the schema does not already say, and link to it rather than repeat it, so the
 two never disagree. Keep a skill to one screen — if it grows past that, it is probably two tasks.
-The slug names the task, not the content type: `add-accepted-papers`, not `publications`. The
-`description` is what makes the skill findable without opening it, so it lists the phrasings the
-manager actually uses. The body follows the shape the existing three share:
+Every skill is named `tdk-<task-slug>`, so the lab's skills stay recognisable among whatever
+else is installed, and the slug names the task rather than the content type:
+`tdk-add-accepted-papers`, not `tdk-publications`. The `description` is what makes a skill
+findable without opening it, so it lists the phrasings the manager actually uses. The body
+follows the shape the existing three share:
 
 ```markdown
 ---
-name: <task-slug>
+name: tdk-<task-slug>
 description: <what the task does>. Use when the manager says <phrase>, <phrase>, <phrase>.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: refresh-courses
+name: tdk-refresh-courses
 description: Re-derive the whole courses page from the Technion faculty registry for the current semester and the three before it. Use when the manager says add a course, add the advanced course, new course for the semester, update the courses page, who teaches what now, is the courses page current, courses this semester, which semesters, or remove old courses.
 ---
 

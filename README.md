@@ -180,7 +180,7 @@ Two data conventions the generator leans on and that are worth keeping current:
 
 [`.claude/skills/`](.claude/skills/) holds one skill per recurring update task — announce
 accepted papers, write up a news item, refresh the courses page. The agent picks the matching
-one by itself; you can also name it outright (`/add-news-item`). It grows: when you ask for
+one by itself; you can also name it outright (`/tdk-add-news-item`). It grows: when you ask for
 something no skill covers, the agent asks you the open questions, does the work, and then
 offers to record what was decided as a new skill, so the second time it does not ask again.
 
