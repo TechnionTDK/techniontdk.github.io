@@ -1,8 +1,7 @@
 ---
 name: Dean Light
 role: Research Consultant
-group: staff
-status: active
+status: alumni
 email: light.skep@gmail.com
 website: https://www.linkedin.com/in/%E2%9A%A1%EF%B8%8F-dean-light-76054812a/
 phone: "0526069136"

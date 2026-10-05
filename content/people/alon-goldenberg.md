@@ -1,5 +1,5 @@
 ---
-name: Along Goldenberg
+name: Alon Goldenberg
 group: msc
 status: active
 degree: M.Sc.
