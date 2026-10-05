@@ -1,7 +1,6 @@
 ---
 name: Aviram Imber
-group: phd
-status: active
+status: alumni
 degree: Ph.D.
 email: aviram.imber@cs.technion.ac.il
 office: "645"
