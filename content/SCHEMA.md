@@ -119,7 +119,7 @@ Slug is `firstname-lastname`. The body is normally empty; if written, it is a sh
 | `advisors` | no | list of `people` slugs | |
 | `email` | no | text | |
 | `website` | no | url | |
-| `links` | no | mapping | More profile links, shown after Website, in the order written. Keys from exactly: `scholar`, `dblp`, `orcid`, `github`, `linkedin`, `x`, `youtube`, `spotify`. |
+| `links` | no | mapping | More profile links, shown on their own line below the contact details, in the order written. Keys from exactly: `scholar`, `dblp`, `orcid`, `github`, `linkedin`, `x`, `youtube`, `spotify`. |
 | `phone` | no | quoted text | Quote it — it is not a number. |
 | `office` | no | quoted text | As written on the site. |
 | `interests` | no | text | Plain prose, comma-separated topics. |

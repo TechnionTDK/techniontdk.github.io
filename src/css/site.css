@@ -449,6 +449,7 @@ th, td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom
   flex-wrap: wrap;
   gap: var(--space-1) var(--space-4);
 }
+.person__links { margin-top: var(--space-1); }
 
 .people-compact {
   list-style: none;
