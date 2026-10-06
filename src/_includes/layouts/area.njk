@@ -2,7 +2,9 @@
 layout: layouts/base.njk
 ---
 {% set areaSlug = page.fileSlug %}
-{% set members = areaSlug | peopleInArea %}
+{# Active people only: alumni are listed on /people/, not on area pages. #}
+{% set members = [] %}
+{% for p in areaSlug | peopleInArea %}{% if p.data.status != "alumni" %}{% set members = (members.push(p), members) %}{% endif %}{% endfor %}
 {% set papers = areaSlug | publicationsInArea %}
 
 <article class="area">
@@ -29,7 +31,6 @@ layout: layouts/base.njk
       {% for p in members %}
       <li>
         <a href="/people/#{{ p.data.slug }}">{% if p.data.honorific %}{{ p.data.honorific }} {% endif %}{{ p.data.name }}</a>
-        {% if p.data.status == "alumni" %}<span class="tag tag--muted">alumnus</span>{% endif %}
       </li>
       {% endfor %}
     </ul>
