@@ -34,7 +34,7 @@ const SCHEMA = {
     opt: {
       honorific: 'enum:Prof.|Dr.',
       role: 'string',
-      group: 'enum:faculty|visiting|staff|phd|msc|developer',
+      group: 'enum:faculty|visiting|postdoc|staff|phd|msc|developer',
       status: 'enum:active|alumni',
       degree: 'enum:Ph.D.|M.Sc.',
       advisors: 'list:slugRef:people',

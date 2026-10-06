@@ -1,12 +1,15 @@
 ---
 name: Shunit Agmon
-group: phd
+role: Postdoctoral Fellow
+group: postdoc
 status: active
 degree: Ph.D.
-email: shunita@cs.technion.ac.il
+advisors: [benny-kimelfeld, brit-youngmann]
+email: shunit.agmon@gmail.com
 website: https://shunita.cswp.cs.technion.ac.il/
 office: "217"
+interests: Biases in databases and machine learning
 photo: /assets/images/people/shunit-agmon.jpg
-areas: [text-analysis, databases-and-machine-learning]
+areas: [databases-and-machine-learning]
 order: 10
 ---

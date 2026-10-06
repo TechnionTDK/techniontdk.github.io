@@ -1,7 +1,7 @@
 ---
 title: People
 ---
-{% set groups = ["faculty", "visiting", "staff", "phd", "msc", "developer"] %}
+{% set groups = ["faculty", "visiting", "postdoc", "staff", "phd", "msc", "developer"] %}
 {% set alumni = [] %}
 {% for p in collections.people %}{% if p.data.status == "alumni" %}{% set alumni = (alumni.push(p), alumni) %}{% endif %}{% endfor %}
 

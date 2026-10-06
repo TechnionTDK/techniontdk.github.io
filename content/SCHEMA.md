@@ -112,7 +112,7 @@ Slug is `firstname-lastname`. The body is normally empty; if written, it is a sh
 |---|---|---|---|
 | `name` | yes | text | As displayed, **without** honorific. |
 | `status` | yes | `active` \| `alumni` | |
-| `group` | active only | `faculty` \| `visiting` \| `staff` \| `phd` \| `msc` \| `developer` | Required while `status: active`; alumni have no group. |
+| `group` | active only | `faculty` \| `visiting` \| `postdoc` \| `staff` \| `phd` \| `msc` \| `developer` | Required while `status: active`; alumni have no group. |
 | `honorific` | no | `Prof.` \| `Dr.` | |
 | `role` | no | text | Free text shown after the name, e.g. `Lab Head`, `Research Consultant`. |
 | `degree` | no | `Ph.D.` \| `M.Sc.` | The degree pursued (students) or obtained (alumni). |

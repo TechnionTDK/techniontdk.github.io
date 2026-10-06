@@ -71,11 +71,12 @@ let pubsByArea = new Map();     // area slug -> publication items
 let pubsBySlug = new Map();     // publication slug -> publication item
 let areasBySlug = new Map();
 
-const GROUP_ORDER = ['faculty', 'visiting', 'staff', 'phd', 'msc', 'developer'];
+const GROUP_ORDER = ['faculty', 'visiting', 'postdoc', 'staff', 'phd', 'msc', 'developer'];
 
 const GROUP_LABELS = {
   faculty: 'Faculty',
   visiting: 'Visiting Researchers',
+  postdoc: 'Postdoctoral Fellows',
   staff: 'Staff',
   phd: 'Ph.D. Students',
   msc: 'M.Sc. Students',
