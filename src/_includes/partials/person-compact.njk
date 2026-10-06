@@ -5,6 +5,6 @@
   {% if d.degree %}<span class="person-compact__degree">{{ d.degree }}</span>{% endif %}
   <span class="person-compact__links">
     {% if d.email %}<a href="mailto:{{ d.email }}">email</a>{% endif %}
-    {% if d.website %}<a href="{{ d.website }}">website</a>{% endif %}
+    {% if d.website %}<a href="{{ d.website }}" target="_blank" rel="noopener">website</a>{% endif %}
   </span>
 </li>

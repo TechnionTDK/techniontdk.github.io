@@ -21,13 +21,13 @@
     {% if d.interests %}<p class="person__interests">{{ d.interests }}</p>{% endif %}
     <ul class="person__contact">
       {% if d.email %}<li><a href="mailto:{{ d.email }}">{{ d.email }}</a></li>{% endif %}
-      {% if d.website %}<li><a href="{{ d.website }}">Website</a></li>{% endif %}
+      {% if d.website %}<li><a href="{{ d.website }}" target="_blank" rel="noopener">Website</a></li>{% endif %}
       {% if d.office %}<li>Office {{ d.office }}</li>{% endif %}
       {% if d.phone %}<li>{{ d.phone }}</li>{% endif %}
     </ul>
     {% if d.links %}
     <ul class="person__contact person__links">
-      {% for key, url in d.links %}<li><a href="{{ url }}">{{ key | profileLinkLabel }}</a></li>{% endfor %}
+      {% for key, url in d.links %}<li><a href="{{ url }}" target="_blank" rel="noopener">{{ key | profileLinkLabel }}</a></li>{% endfor %}
     </ul>
     {% endif %}
   </div>
