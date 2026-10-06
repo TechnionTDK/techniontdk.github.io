@@ -84,6 +84,18 @@ const GROUP_LABELS = {
   alumni: 'Alumni',
 };
 
+// Labels for a person's `links` keys; tools/validate.js holds the same key list.
+const PROFILE_LINK_LABELS = {
+  scholar: 'Google Scholar',
+  dblp: 'DBLP',
+  orcid: 'ORCID',
+  github: 'GitHub',
+  linkedin: 'LinkedIn',
+  x: 'X',
+  youtube: 'YouTube',
+  spotify: 'Spotify',
+};
+
 const slugOf = (item) => path.basename(item.inputPath).replace(/\.md$/, '');
 
 // Active people first in group order, then alumni; `order` then `name` within.
@@ -271,6 +283,7 @@ export default function (eleventyConfig) {
   });
   eleventyConfig.addFilter('year', (d) => asDate(d).getUTCFullYear());
   eleventyConfig.addFilter('groupLabel', (g) => GROUP_LABELS[g] ?? g);
+  eleventyConfig.addFilter('profileLinkLabel', (k) => PROFILE_LINK_LABELS[k] ?? k);
 
   eleventyConfig.addFilter('absoluteUrl', (url, base) => new URL(url, base).href);
 

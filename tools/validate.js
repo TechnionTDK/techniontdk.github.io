@@ -25,7 +25,7 @@ const COURSE_SEMESTERS = (() => {
 // content/SCHEMA.md documents the same rules for humans and agents.
 //   req/opt  - field name -> type
 //   types:   string | text | int | bool | date | url | assetPath | slugRef:<type>
-//            | enum:<a|b|c> | list:<type> | links | collaborators
+//            | enum:<a|b|c> | list:<type> | links | profileLinks | collaborators
 // ---------------------------------------------------------------------------
 const SCHEMA = {
   people: {
@@ -40,6 +40,7 @@ const SCHEMA = {
       advisors: 'list:slugRef:people',
       email: 'string',
       website: 'url',
+      links: 'profileLinks',
       phone: 'string',
       office: 'string',
       interests: 'text',
@@ -138,6 +139,7 @@ const SCHEMA = {
 };
 
 const LINK_KEYS = ['paper', 'arxiv', 'doi', 'code', 'slides', 'video'];
+const PROFILE_LINK_KEYS = ['scholar', 'dblp', 'orcid', 'github', 'linkedin', 'x', 'youtube', 'spotify'];
 const RUN_KEYS = ['semester', 'instructors', 'lecturer', 'url'];
 
 // ---------------------------------------------------------------------------
@@ -222,15 +224,18 @@ function checkValue(type, where, field, spec, value, err) {
       checkAsset(field, value, err);
       break;
     case 'links':
+    case 'profileLinks': {
+      const keys = spec === 'links' ? LINK_KEYS : PROFILE_LINK_KEYS;
       if (typeof value !== 'object' || value === null || Array.isArray(value)) {
         return err(`${field}: expected a mapping`);
       }
       for (const [k, v] of Object.entries(value)) {
-        if (!LINK_KEYS.includes(k)) err(`${field}.${k}: not one of ${LINK_KEYS.join(', ')}`);
+        if (!keys.includes(k)) err(`${field}.${k}: not one of ${keys.join(', ')}`);
         if (typeof v !== 'string' || !/^https?:\/\//.test(v)) err(`${field}.${k}: expected a URL`);
       }
       if (Object.keys(value).length === 0) err(`${field}: empty (omit the field instead)`);
       break;
+    }
     case 'courseRuns':
       if (!Array.isArray(value) || value.length === 0) {
         return err(`${field}: expected a non-empty list of runs`);

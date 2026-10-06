@@ -22,6 +22,7 @@
     <ul class="person__contact">
       {% if d.email %}<li><a href="mailto:{{ d.email }}">{{ d.email }}</a></li>{% endif %}
       {% if d.website %}<li><a href="{{ d.website }}">Website</a></li>{% endif %}
+      {% for key, url in d.links %}<li><a href="{{ url }}">{{ key | profileLinkLabel }}</a></li>{% endfor %}
       {% if d.office %}<li>Office {{ d.office }}</li>{% endif %}
       {% if d.phone %}<li>{{ d.phone }}</li>{% endif %}
     </ul>
