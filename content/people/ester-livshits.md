@@ -1,8 +1,13 @@
 ---
 name: Ester Livshits
-status: alumni
+honorific: Dr.
+role: Research Associate
+group: staff
+status: active
 degree: Ph.D.
-email: esterliv@cs.technion.ac.il
-areas: [inconsistent-data-management]
-order: 30
+email: esterliv@technion.ac.il
+website: https://esterliv.com/
+interests: Database theory, inconsistent databases, explainability
+areas: [inconsistent-data-management, enumeration-algorithms, databases-and-machine-learning]
+order: 15
 ---
