@@ -4,6 +4,7 @@ status: active
 group: phd
 degree: Ph.D.
 advisors: [benny-kimelfeld]
+external_advisors: [Efrat Eizenberg]
 email: eliya.t@campus.technion.ac.il
 links:
   linkedin: https://il.linkedin.com/in/eliya-tzarfaty-geographer

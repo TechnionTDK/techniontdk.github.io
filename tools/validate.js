@@ -38,6 +38,7 @@ const SCHEMA = {
       status: 'enum:active|alumni',
       degree: 'enum:Ph.D.|M.Sc.',
       advisors: 'list:slugRef:people',
+      external_advisors: 'list:string',
       email: 'string',
       website: 'url',
       links: 'profileLinks',

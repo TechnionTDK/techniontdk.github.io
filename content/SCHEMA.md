@@ -117,6 +117,7 @@ Slug is `firstname-lastname`. The body is normally empty; if written, it is a sh
 | `role` | no | text | Free text shown after the name, e.g. `Lab Head`, `Research Consultant`. |
 | `degree` | no | `Ph.D.` \| `M.Sc.` | The degree pursued (students) or obtained (alumni). |
 | `advisors` | no | list of `people` slugs | |
+| `external_advisors` | no | list of text | Advisors from outside the lab who have no file in `people/`, full names as displayed. Shown unlinked after `advisors`. |
 | `email` | no | text | |
 | `website` | no | url | |
 | `links` | no | mapping | More profile links, shown on their own line below the contact details, in the order written. Keys from exactly: `scholar`, `dblp`, `orcid`, `github`, `linkedin`, `x`, `youtube`, `spotify`. |

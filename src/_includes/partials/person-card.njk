@@ -10,12 +10,13 @@
     <h3 class="person__name">{% if d.honorific %}{{ d.honorific }} {% endif %}{{ d.name }}</h3>
     {% if d.role %}<p class="person__role">{{ d.role }}</p>{% endif %}
     {% if d.degree and not d.role %}<p class="person__role">{{ d.degree }} student</p>{% endif %}
-    {% if d.advisors %}
+    {% if d.advisors or d.external_advisors %}
     <p class="person__advisors">Advised by
       {% for slug in d.advisors %}{% set a = slug | personBySlug %}
         {%- if a %}<a href="/people/#{{ slug }}">{{ a.data.name }}</a>{% else %}{{ slug }}{% endif -%}
-        {%- if not loop.last %}, {% endif -%}
+        {%- if not loop.last or d.external_advisors %}, {% endif -%}
       {% endfor %}
+      {%- for name in d.external_advisors %}{{ name }}{% if not loop.last %}, {% endif %}{% endfor %}
     </p>
     {% endif %}
     {% if d.interests %}<p class="person__interests">{{ d.interests }}</p>{% endif %}
