@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 672 388" width="672" height="388">
+  <rect width="672" height="388" fill="#f7eef0"/>
+  <g stroke="#c9c6c1" stroke-width="3" fill="none">
+    <path d="M336 70 L 216 160 M336 70 L 456 160"/>
+    <path d="M216 160 L 156 250 M216 160 L 276 250 M456 160 L 396 250 M456 160 L 516 250"/>
+  </g>
+  <g stroke="#8a1c2b" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round" fill="none">
+    <path d="M156 280 L 156 318 M276 280 L 276 318 M396 280 L 396 318 M516 280 L 516 318"/>
+  </g>
+  <circle cx="336" cy="70" r="22" fill="#61131e"/>
+  <g fill="#ffffff" stroke="#8a1c2b" stroke-width="4">
+    <circle cx="216" cy="160" r="18"/>
+    <circle cx="456" cy="160" r="18"/>
+  </g>
+  <g fill="#8a1c2b">
+    <circle cx="156" cy="250" r="16"/>
+    <circle cx="276" cy="250" r="16"/>
+    <circle cx="396" cy="250" r="16"/>
+    <circle cx="516" cy="250" r="16"/>
+  </g>
+  <g fill="#ffffff" stroke="#c9c6c1" stroke-width="2">
+    <rect x="128" y="322" width="56" height="34" rx="6"/>
+    <rect x="248" y="322" width="56" height="34" rx="6"/>
+    <rect x="368" y="322" width="56" height="34" rx="6"/>
+    <rect x="488" y="322" width="56" height="34" rx="6"/>
+  </g>
+  <g font-family="Georgia, serif" font-size="20" fill="#61131e" text-anchor="middle">
+    <text x="156" y="346">1</text>
+    <text x="276" y="346">2</text>
+    <text x="396" y="346">3</text>
+    <text x="516" y="346">4</text>
+  </g>
+  <g stroke="#8a1c2b" stroke-width="3">
+    <path d="M190 339 H 240 M310 339 H 360 M430 339 H 480"/>
+  </g>
+</svg>

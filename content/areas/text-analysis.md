@@ -1,7 +1,7 @@
 ---
 title: Text Analysis
 tagline: We develop foundations of declarative languages for analyzing text alongside structured data
-image: /assets/images/areas/text-analysis.jpg
+image: /assets/images/areas/text-analysis.svg
 order: 1
 collaborators:
   - name: Ron Fagin

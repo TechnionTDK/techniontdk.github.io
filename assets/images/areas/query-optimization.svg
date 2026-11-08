@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 672 388" width="672" height="388">
+  <rect width="672" height="388" fill="#f7eef0"/>
+  <g stroke="#c9c6c1" stroke-width="3">
+    <path d="M336 84 L 220 174 M336 84 L 452 174 M220 174 L 150 270 M220 174 L 290 270 M452 174 L 400 270 M452 174 L 520 270"/>
+  </g>
+  <g stroke="#8a1c2b" stroke-width="6" fill="none">
+    <path d="M336 84 L 220 174 L 290 270 M220 174 L 150 270"/>
+  </g>
+  <g font-family="Georgia, serif" font-size="26" text-anchor="middle">
+    <rect x="300" y="56" width="72" height="56" rx="10" fill="#61131e"/>
+    <text x="336" y="93" fill="#ffffff">π</text>
+    <rect x="184" y="146" width="72" height="56" rx="10" fill="#8a1c2b"/>
+    <text x="220" y="183" fill="#ffffff">⋈</text>
+    <rect x="416" y="146" width="72" height="56" rx="10" fill="#ffffff" stroke="#c9c6c1" stroke-width="3"/>
+    <text x="452" y="183" fill="#767676">⋈</text>
+  </g>
+  <g>
+    <rect x="118" y="252" width="64" height="44" rx="6" fill="#8a1c2b"/>
+    <rect x="258" y="252" width="64" height="44" rx="6" fill="#8a1c2b"/>
+    <rect x="368" y="252" width="64" height="44" rx="6" fill="#ffffff" stroke="#c9c6c1" stroke-width="3"/>
+    <rect x="488" y="252" width="64" height="44" rx="6" fill="#ffffff" stroke="#c9c6c1" stroke-width="3"/>
+  </g>
+  <g transform="translate(560 72)">
+    <circle cx="26" cy="26" r="26" fill="#ffffff" stroke="#8a1c2b" stroke-width="4"/>
+    <path d="M26 26 L 26 10 M26 26 L 38 32" stroke="#8a1c2b" stroke-width="4" stroke-linecap="round"/>
+  </g>
+</svg>
