@@ -3,54 +3,73 @@ description: The Technion Data & Knowledge Lab develops infrastructures for data
 ---
 {% set home = null %}
 {% for p in collections.contentPages %}{% if p.data.page.fileSlug == "home" %}{% set home = p %}{% endif %}{% endfor %}
+{# The middle of the lab's name carries the brand gradient when it is there to
+   find; any other name renders plain. #}
+{% set brandWords = "Data & Knowledge" %}
+{% set nameParts = site.name.split(brandWords) %}
 
 <section class="hero">
-  <div class="wrap wrap--prose prose">
-    <h1 class="hero__title">{{ site.name }}</h1>
-    {% if home %}{{ home.templateContent | safe }}{% endif %}
+  <div class="wrap hero__inner">
+    <p class="eyebrow">{% for a in site.affiliations %}{{ a.name }}{% if not loop.last %} · {% endif %}{% endfor %}</p>
+    <h1 class="hero__title">
+      {%- if nameParts.length == 2 -%}
+        {{ nameParts[0] }}<span class="hero__brand">{{ brandWords }}</span>{{ nameParts[1] }}
+      {%- else -%}{{ site.name }}{%- endif -%}
+    </h1>
+    {% if home %}<div class="hero__text">{{ home.templateContent | safe }}</div>{% endif %}
+    <p class="hero__actions">
+      <a class="button" href="/research/">Explore our research</a>
+      <a class="button button--quiet" href="/people/">Meet the people</a>
+    </p>
   </div>
 </section>
 
-<section class="wrap section">
-  <div class="section__head">
-    <h2>Research</h2>
-    <a class="section__more" href="/research/">All research areas</a>
+<section class="band band--alt">
+  <div class="wrap">
+    <div class="section__head">
+      <h2>Research</h2>
+      <a class="section__more" href="/research/">All research areas</a>
+    </div>
+    <ul class="cards cards--areas">
+      {% for area in collections.areas %}{% include "partials/area-card.njk" %}{% endfor %}
+    </ul>
   </div>
-  <ul class="cards cards--areas">
-    {% for area in collections.areas %}{% include "partials/area-card.njk" %}{% endfor %}
-  </ul>
 </section>
 
-<section class="wrap section">
-  <div class="section__head">
-    <h2>News</h2>
-    <a class="section__more" href="/news/">All news</a>
+<section class="band">
+  <div class="wrap">
+    <div class="section__head">
+      <h2>Latest news</h2>
+      <a class="section__more" href="/news/">All news</a>
+    </div>
+    <ul class="teasers">
+      {% for item in collections.news | head(site.home.news_count) %}
+        {% include "partials/news-teaser.njk" %}
+      {% endfor %}
+    </ul>
   </div>
-  <ul class="teasers">
-    {% for item in collections.news | head(site.home.news_count) %}
-      {% include "partials/news-teaser.njk" %}
-    {% endfor %}
-  </ul>
 </section>
 
 {% set photoNews = collections.news | withCover | head(site.home.photo_news_count) %}
 {% if photoNews.length %}
-<section class="wrap section">
-  <div class="section__head">
-    <h2>In pictures</h2>
+<section class="band band--alt">
+  <div class="wrap">
+    <div class="section__head">
+      <h2>In pictures</h2>
+    </div>
+    <ul class="cards cards--photos">
+      {% for item in photoNews %}
+      <li class="card">
+        <a class="card__link" href="{{ item.url }}">
+          <img class="card__image" src="{{ item.data.cover }}" alt="{{ item.data.title }}" loading="lazy">
+          <span class="card__body">
+            <span class="card__meta">{{ item.data.date | formatDate }}</span>
+            <span class="card__title">{{ item.data.title }}</span>
+          </span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
   </div>
-  <ul class="cards cards--photos">
-    {% for item in photoNews %}
-    <li class="card">
-      <a class="card__link" href="{{ item.url }}">
-        <img class="card__image" src="{{ item.data.cover }}" alt="{{ item.data.title }}" loading="lazy">
-        <span class="card__body">
-          <span class="card__meta">{{ item.data.date | formatDate }}</span>
-          <span class="card__title">{{ item.data.title }}</span>
-        </span>
-      </a>
-    </li>
-    {% endfor %}
-  </ul>
 </section>
 {% endif %}

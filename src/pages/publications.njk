@@ -11,8 +11,8 @@ title: Publications
     </ul>
   </nav>
   {% for group in years %}
-  <section class="section pub-year" id="y{{ group.key }}">
-    <h2 class="section__title">{{ group.key }}</h2>
+  <section class="year-group pub-year" id="y{{ group.key }}">
+    <h2 class="year-group__year">{{ group.key }}</h2>
     <ol class="pub-list">
       {% for pub in group.items %}{% include "partials/publication.njk" %}{% endfor %}
     </ol>

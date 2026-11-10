@@ -1,20 +1,32 @@
 <footer class="site-footer">
-  <div class="wrap site-footer__inner">
-    <div class="site-footer__affiliations">
-      {% for a in site.affiliations %}
-      <a href="{{ a.url }}" class="site-footer__affiliation">
-        {% if a.logo %}<img src="{{ a.logo }}" alt="{{ a.name }}" height="44" loading="lazy">
-        {% else %}{{ a.name }}{% endif %}
+  <div class="wrap">
+    <div class="site-footer__top">
+      <a class="site-footer__brand" href="/">
+        <img src="{{ site.logo }}" alt="{{ site.name }}" width="448" height="86" loading="lazy">
       </a>
-      {% endfor %}
+      <nav class="site-footer__nav" aria-label="Footer">
+        <ul>
+          {% for item in site.nav %}<li><a href="{{ item.url }}">{{ item.label }}</a></li>{% endfor %}
+        </ul>
+      </nav>
     </div>
-    <div class="site-footer__meta">
-      <p class="site-footer__copyright">{{ site.footer.copyright }}</p>
-      {% if site.footer.links %}
-      <ul class="site-footer__links">
-        {% for l in site.footer.links %}<li><a href="{{ l.url }}">{{ l.label }}</a></li>{% endfor %}
-      </ul>
-      {% endif %}
+    <div class="site-footer__inner">
+      <div class="site-footer__meta">
+        <p class="site-footer__copyright">{{ site.footer.copyright }}</p>
+        {% if site.footer.links %}
+        <ul class="site-footer__links">
+          {% for l in site.footer.links %}<li><a href="{{ l.url }}">{{ l.label }}</a></li>{% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+      <div class="site-footer__affiliations">
+        {% for a in site.affiliations %}
+        <a href="{{ a.url }}" class="site-footer__affiliation">
+          {% if a.logo %}<img src="{{ a.logo }}" alt="{{ a.name }}" height="44" loading="lazy">
+          {% else %}{{ a.name }}{% endif %}
+        </a>
+        {% endfor %}
+      </div>
     </div>
   </div>
 </footer>
